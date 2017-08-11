@@ -1,7 +1,5 @@
-console.log "Seeding Data ..."
-
-## USERS
-console.log "Creating User"
+console.log ("Seeding Data ...");
+console.log ("Creating Data");
 
 exports.seed = function(knex, Promise) {
   return knex('users').del()
@@ -42,4 +40,3 @@ exports.seed = function(knex, Promise) {
       ])
     })
 }
-
