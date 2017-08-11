@@ -12,8 +12,9 @@ A smarter auto-match system for DOTA2 players.
 4. Run migrations: `npm run knex migrate:latest`
   - Check the migrations folder to see what gets created in the DB
 5. Run the server: `npm start`
+6. Run the app on localhost:3000
 
 ### Client side
 1. Update the .env file with your correct local information
 2. Install dependencies: `npm i`
-3. Run the server: `npm start`
+3. Run the webpack-dev-server: `npm start`
