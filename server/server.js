@@ -11,6 +11,9 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(knexLogger(knex));
+app.use(morgan('dev'));
 app.use(express.static('public'))
 
 app.listen(PORT, () => {
