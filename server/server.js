@@ -11,11 +11,27 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(knexLogger(knex));
 app.use(morgan('dev'));
 app.use(express.static('public'))
+app.set("view engine", "ejs");
 
-app.listen(PORT, () => {
+//Home page
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+server.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
+});
+
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
 });
