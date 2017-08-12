@@ -8,6 +8,6 @@
 <body>
   <div id="react-root"></div>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="http://localhost:8080/bundle.js"></script>
+  <script src='http://localhost:<%=process.env.WEBPACK_DEV_PORT%>/bundle.js'></script>
 </body>
 </html>

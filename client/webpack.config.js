@@ -12,7 +12,8 @@ module.exports = {
   // https://webpack.js.org/configuration/dev-server/
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    port: process.env.WEBPACK_DEV_PORT
   },
   module: {
     rules: [

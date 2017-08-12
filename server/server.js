@@ -18,6 +18,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(knexLogger(knex));
 app.use(morgan('dev'));
 app.use(express.static('public'))
+app.set("view engine", "ejs");
+
+//Home page
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
 server.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
