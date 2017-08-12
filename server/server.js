@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const PORT        = process.env.PORT || 3000;
+const IO_PORT        = process.env.IO_PORT || 3001;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const bodyParser  = require("body-parser");
@@ -29,9 +30,13 @@ server.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
 
-io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+io.on('connect', function (socket) {
+  console.log("a user connected!");
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
   });
+});
+
+io.listen(IO_PORT, () => {
+  console.log("Socket.io listening on port " + IO_PORT);
 });
