@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const PORT        = process.env.PORT || 3000;
-const IO_PORT        = process.env.IO_PORT || 3001;
+const IO_PORT     = process.env.IO_PORT || 3001;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const bodyParser  = require("body-parser");
