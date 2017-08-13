@@ -1,4 +1,6 @@
 const helper = require('./helper');
+const express = require('express');
+const router = express.Router();
 
 class Routes{
 
@@ -6,14 +8,14 @@ class Routes{
 		this.app = app;
 	}
 
-  appRoutes(){
+  appRoutes(knex){
     this.app.get("/", (req, res) => {
       res.render("index");
     });
   }
 
-  routesConfig(){
-		this.appRoutes();
+  routesConfig(knex){
+		this.appRoutes(knex);
 	}
 
 }

@@ -18,7 +18,6 @@ class Server {
 
   constructor(){
     this.PORT = process.env.PORT || 3000;
-    this.ENV = process.ENV || "development";
 
     this.app = express();
     this.http = http.Server(this.app);
@@ -33,7 +32,7 @@ class Server {
   }
 
   includeRoutes(){
-    new routes(this.app).routesConfig();
+    new routes(this.app).routesConfig(knex);
     new socketEvents(this.socket).socketConfig();
   }
 
@@ -44,7 +43,7 @@ class Server {
       console.log(`Listening on port: ${this.PORT}`);
     });
   }
-  
+
 }
 
 const app = new Server();
