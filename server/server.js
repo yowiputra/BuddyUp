@@ -1,37 +1,50 @@
 require('dotenv').config();
 
-const PORT        = process.env.PORT || 3000;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const bodyParser  = require("body-parser");
-const app         = express();
-
+const http        = require("http");
 const knexConfig  = require("./knexfile");
-const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const knex        = require("knex")(knexConfig[ENV]);
+const io          = require('socket.io');
 
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const config = require('./utils/config');
+const socketEvents = require('./utils/socket');
+const routes = require('./utils/routes');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(knexLogger(knex));
-app.use(morgan('dev'));
-app.use(express.static('public'))
-app.set("view engine", "ejs");
+class Server {
 
-//Home page
-app.get("/", (req, res) => {
-  res.render("index");
-});
+  constructor(){
+    this.PORT = process.env.PORT || 3000;
 
-server.listen(PORT, () => {
-  console.log("Example app listening on port " + PORT);
-});
+    this.app = express();
+    this.http = http.Server(this.app);
+    this.socket = io(this.http);
+  }
 
-io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-});
+  appConfig(){
+    this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(knexLogger(knex));
+    this.app.use(morgan('dev'));
+    new config(this.app);
+  }
+
+  includeRoutes(){
+    new routes(this.app).routesConfig(knex);
+    new socketEvents(this.socket).socketConfig();
+  }
+
+  appExecute(){
+    this.appConfig();
+    this.includeRoutes();
+    this.http.listen(this.PORT, () => {
+      console.log(`Listening on port: ${this.PORT}`);
+    });
+  }
+
+}
+
+const app = new Server();
+app.appExecute();
