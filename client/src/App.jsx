@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Dropdown from './Dropdown.jsx';
+import Main from './Main.jsx';
 import io from 'socket.io-client';
 
 const socket = io.connect('http://127.0.0.1:3001');
@@ -20,7 +21,8 @@ class App extends Component {
           <p className="title">BuddyUp</p>
           <Dropdown />
         </nav>
-        <h1>Hello React</h1>
+        <h1><strong>Here are your matches:</strong></h1>
+        <Main />
       </div>
     );
   }
