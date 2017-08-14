@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Menu from 'react-menu'
+import Menu from 'react-menu';
 
 const MenuTrigger = Menu.MenuTrigger;
 const MenuOptions = Menu.MenuOptions;
 const MenuOption = Menu.MenuOption;
 
 class Dropdown extends Component {
-  render (){
+  render () {
     return (
       <Menu>
         <MenuTrigger>
