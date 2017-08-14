@@ -9,10 +9,11 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const knex        = require("knex")(knexConfig[ENV]);
 const io          = require('socket.io');
+const helmet      = require('helmet');
 
-const config = require('./utils/config');
+const config      = require('./utils/config');
 const socketEvents = require('./utils/socket');
-const routes = require('./utils/routes');
+const routes      = require('./utils/routes');
 
 class Server {
 
@@ -28,6 +29,7 @@ class Server {
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(knexLogger(knex));
     this.app.use(morgan('dev'));
+    this.app.use(helmet());
     new config(this.app);
   }
 
