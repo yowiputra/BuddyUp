@@ -30,18 +30,14 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar">
-          <p className="title">BuddyUp</p>
-          <Dropdown />
-        </nav>
-        <h1><strong>Here are your matches:</strong></h1>
-        <Main />
         <div className="container">
           <NavigationBar />
           <Route exact path="/" component={Greetings} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={LoginPage} />
         </div>
+        <h1><strong>Here are your matches:</strong></h1>
+        <Main />
       </div>
     );
   }
