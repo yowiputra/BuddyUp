@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Greetings from './Greetings.jsx';
 import NavigationBar from './NavigationBar.jsx';
 import LoginPage from './LoginPage.jsx';
+import ProfilePage from './ProfilePage.jsx';
 
 const socket = io.connect('http://127.0.0.1:3001');
 
@@ -32,6 +33,7 @@ class App extends Component {
         <Route exact path="/" component={Greetings} />
         <Route path="/signup" component={SignupPage} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/profile" component={ProfilePage} />
       </div>
     );
   }
