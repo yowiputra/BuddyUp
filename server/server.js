@@ -12,6 +12,9 @@ const knex        = require("knex")(knexConfig[ENV]);
 const socketio    = require('socket.io');
 const helmet      = require('helmet');
 
+import users from './routes/users.js'
+import auth from './routes/auth.js'
+
 // external files
 const socketEvent = require('./sockets.js');
 
@@ -20,7 +23,7 @@ const app         = express();
 const server      = http.Server(app);
 const io          = socketio(server);
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(knexLogger(knex));
 app.use(morgan('dev'));
 app.use(helmet());
@@ -29,9 +32,14 @@ app.use(express.static('public'));
 
 // routes setup
 // homepage
-app.get("/", (req, res) => {
+app.get(/.*/, (req, res) => {
   res.render("index");
 });
+
+//registration
+app.use('/api/users', users);
+app.use('/api/auth', auth);
+
 
 // socket.io listener
 socketEvent(io);
