@@ -1,14 +1,19 @@
 $brand-color: tomato;
 
+<<<<<<< HEAD
 body{
   background: white;
   margin: 0;
 }
 h1, h2 {
+=======
+h1 {
+>>>>>>> 5e0bb766dd8440ce0f17b39d45510c97b5cfb813
   color: $brand-color;
   display: flex;
   justify-content: center;
 }
+<<<<<<< HEAD
 nav {
   background: peachpuff;
   display: flex;
@@ -131,3 +136,5 @@ nav {
   transform: translate(-50%, 0);
   margin-left: 50%;
   }
+=======
+>>>>>>> 5e0bb766dd8440ce0f17b39d45510c97b5cfb813

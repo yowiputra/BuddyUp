@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const PORT        = process.env.PORT || 3000;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const bodyParser  = require("body-parser");
@@ -8,43 +9,42 @@ const knexConfig  = require("./knexfile");
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const knex        = require("knex")(knexConfig[ENV]);
-const io          = require('socket.io');
+const socketio    = require('socket.io');
+const helmet      = require('helmet');
 
-const config = require('./utils/config');
-const socketEvents = require('./utils/socket');
-const routes = require('./utils/routes');
+import users from './routes/users.js'
+import auth from './routes/auth.js'
 
-class Server {
+// external files
+const socketEvent = require('./sockets.js');
 
-  constructor(){
-    this.PORT = process.env.PORT || 3000;
+// server setup
+const app         = express();
+const server      = http.Server(app);
+const io          = socketio(server);
 
-    this.app = express();
-    this.http = http.Server(this.app);
-    this.socket = io(this.http);
-  }
+app.use(bodyParser.json());
+app.use(knexLogger(knex));
+app.use(morgan('dev'));
+app.use(helmet());
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
-  appConfig(){
-    this.app.use(bodyParser.urlencoded({ extended: true }));
-    this.app.use(knexLogger(knex));
-    this.app.use(morgan('dev'));
-    new config(this.app);
-  }
+// routes setup
+// homepage
+app.get(/.*/, (req, res) => {
+  res.render("index");
+});
 
-  includeRoutes(){
-    new routes(this.app).routesConfig(knex);
-    new socketEvents(this.socket).socketConfig();
-  }
+//registration
+app.use('/api/users', users);
+app.use('/api/auth', auth);
 
-  appExecute(){
-    this.appConfig();
-    this.includeRoutes();
-    this.http.listen(this.PORT, () => {
-      console.log(`Listening on port: ${this.PORT}`);
-    });
-  }
 
-}
+// socket.io listener
+socketEvent(io);
 
-const app = new Server();
-app.appExecute();
+// server listener
+server.listen(PORT, () => {
+  console.log(`Listening on port: ${PORT}`);
+});
