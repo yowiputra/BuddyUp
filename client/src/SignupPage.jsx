@@ -12,7 +12,6 @@ class SignupPage extends Component {
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
           <SignupForm userSignupRequest={userSignupRequest} />
-          <h1>Hello asdf</h1>
         </div>
       </div>
     );
