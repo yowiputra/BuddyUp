@@ -10,6 +10,7 @@ h1, h2 {
   justify-content: center;
 }
 nav {
+  background: peachpuff;
   display: flex;
   justify-content: space-between; 
   padding: 10px;
@@ -19,35 +20,61 @@ nav {
   }
   .dropdown {
     margin: 0;
+    position: relative;
   }
+
+  .Menu {
+    left: 1010px;
+    position: absolute;
+    visibility: visible;
+    
+  }
+
+  .Menu:hover, .children:hover {
+    background: gainsboro;
+    cursor: pointer;
+    display: block;
+    visibility: visible;
+  }
+
 .master-root {
   margin: 20px auto;
   height: 50px;
   position: relative;
-  min-height: 300px;
+  min-height: 400px;
   max-height: 100px;
   width: 300px;
   overflow: hidden;
-  border: 1px solid #e5e5e5;
+  border: 1px solid grey;
+  padding: 0px 0px 10px 0px;
+  
 }
 
-.card {
-  background-color: white;
-  background-size: cover;
-  position: absolute;
+  .card {
   background: peachpuff;
-  height: 200px;
-  width: 180px;
-  margin: 0 auto;
-  transition: box-shadow .3s;
+  background-size: cover;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   cursor: pointer;
+  height: 300px;
+  text-align: center;
+  margin: 0 auto;
+  position: absolute;
+  transition: box-shadow .3s;
+  width: 180px;
 }
 
 .card:hover{
-  background: lightgrey; 
+  border: 1px solid black; 
 }
 
+.card-text-description {
+  font-size: medium;
+  overflow-wrap: break-word;
+}
+.btn-poke{
+  margin: 50px;
+
+}
 .animate {
   transition: transform .3s;
   box-shadow: none;
