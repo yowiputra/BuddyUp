@@ -34,8 +34,8 @@ class Server {
   }
 
   includeRoutes(){
-    new routes(this.app).routesConfig(knex);
-    new socketEvents(this.socket).socketConfig();
+    new routes(this.app, knex).routesConfig();
+    new socketEvents(this.socket, knex).socketConfig();
   }
 
   appExecute(){

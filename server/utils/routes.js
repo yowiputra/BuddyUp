@@ -4,8 +4,9 @@ const router = express.Router();
 
 class Routes{
 
-  constructor(app){
+  constructor(app, knex){
 		this.app = app;
+    this.knex = knex;
 	}
 
   appRoutes(knex){
@@ -14,8 +15,8 @@ class Routes{
     });
   }
 
-  routesConfig(knex){
-		this.appRoutes(knex);
+  routesConfig(){
+		this.appRoutes(this.knex);
 	}
 
 }

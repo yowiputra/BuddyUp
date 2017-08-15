@@ -4,11 +4,12 @@ const helper = require('./helper');
 const IO_PORT = process.env.IO_PORT || 3001;
 
 class Socket{
-  constructor(socket){
+  constructor(socket, knex){
     this.io = socket;
+    this.knex = knex;
   }
 
-  socketEvents(){
+  socketEvents(knex){
     this.io.on('connect', (socket) => {
 
       socket.on('connect', function (socket) {
@@ -26,7 +27,7 @@ class Socket{
   }
 
   socketConfig(){
-    this.socketEvents();
+    this.socketEvents(this.knex);
   }
 }
 
