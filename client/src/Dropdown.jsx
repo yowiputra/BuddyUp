@@ -8,6 +8,7 @@ const MenuOption = Menu.MenuOption;
 class Dropdown extends Component {
   render () {
     return (
+      // the menu dropdown extends the whole navbar dimensions, instead of just extending within its own area
       <Menu>
         <MenuTrigger>
           <p className="dropdown">
