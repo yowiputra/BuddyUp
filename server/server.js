@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const PORT        = process.env.PORT || 3000;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const bodyParser  = require("body-parser");
@@ -8,45 +9,34 @@ const knexConfig  = require("./knexfile");
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const knex        = require("knex")(knexConfig[ENV]);
-const io          = require('socket.io');
+const socketio    = require('socket.io');
 const helmet      = require('helmet');
 
-const config      = require('./utils/config');
-const socketEvents = require('./utils/socket');
-const routes      = require('./utils/routes');
+// external files
+const socketEvent = require('./sockets.js');
 
-class Server {
+// server setup
+const app         = express();
+const server      = http.Server(app);
+const io          = socketio(server);
 
-  constructor(){
-    this.PORT = process.env.PORT || 3000;
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(knexLogger(knex));
+app.use(morgan('dev'));
+app.use(helmet());
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
-    this.app = express();
-    this.http = http.Server(this.app);
-    this.socket = io(this.http);
-  }
+// routes setup
+// homepage
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
-  appConfig(){
-    this.app.use(bodyParser.urlencoded({ extended: true }));
-    this.app.use(knexLogger(knex));
-    this.app.use(morgan('dev'));
-    this.app.use(helmet());
-    new config(this.app);
-  }
+// socket.io listener
+socketEvent(io);
 
-  includeRoutes(){
-    new routes(this.app, knex).routesConfig();
-    new socketEvents(this.socket, knex).socketConfig();
-  }
-
-  appExecute(){
-    this.appConfig();
-    this.includeRoutes();
-    this.http.listen(this.PORT, () => {
-      console.log(`Listening on port: ${this.PORT}`);
-    });
-  }
-
-}
-
-const app = new Server();
-app.appExecute();
+// server listener
+server.listen(PORT, () => {
+  console.log(`Listening on port: ${PORT}`);
+});
