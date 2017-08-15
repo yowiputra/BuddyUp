@@ -11,14 +11,10 @@ class Socket{
 
   socketEvents(knex){
     this.io.on('connect', (socket) => {
-
-      socket.on('connect', function (socket) {
-        console.log("a user connected!");
-        socket.on('disconnect', function () {
-          console.log('user disconnected');
-        });
+      console.log("a user connected!");
+      socket.on('disconnect', function () {
+        console.log('user disconnected');
       });
-
     });
 
     this.io.listen(IO_PORT, () => {
