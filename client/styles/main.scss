@@ -1,21 +1,5 @@
 $brand-color: tomato;
 
-body{
-  margin: 0;
-}
 h1 {
   color: $brand-color;
 }
-nav {
-  background: peachpuff;
-  border-bottom: 1px solid grey;
-  display: flex;
-  justify-content: space-between; 
-  padding: 10px;
-}
-  .title {
-    margin: 0;
-  }
-  .dropdown {
-    margin: 0;
-  }

@@ -5,7 +5,7 @@ import SignupPage from './SignupPage.jsx';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Greetings from './Greetings.jsx';
 import NavigationBar from './NavigationBar.jsx';
-import LoginPage from './LoginPage.jsx'
+import LoginPage from './LoginPage.jsx';
 
 const socket = io.connect('http://127.0.0.1:3001');
 
@@ -18,7 +18,6 @@ class App extends Component {
     }
   }
 
-
   componentDidMount() {
     console.log("componentDidMount <App />");
     socket.on("connect", function () {
@@ -28,12 +27,6 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <nav className="navbar">
-          <p className="title">BuddyUp</p>
-          <Dropdown />
-        </nav>
-        <h1>Hello React</h1>
       <div className="container">
         <NavigationBar />
         <Route exact path="/" component={Greetings} />
@@ -43,8 +36,9 @@ class App extends Component {
     );
   }
 }
+
 const style = {
-  margin: 15,
+   margin: 15,
 };
 
 export default App;
