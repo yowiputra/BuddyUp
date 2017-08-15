@@ -44,7 +44,7 @@ class LoginForm extends Component {
     const { errors, identifier, password, isLoading } = this.state;
     return (
       <form onSubmit={this.onSubmit}>
-        <h1>Log in yayyy!</h1>
+        <h1>Log in yayyy bowbowbow!</h1>
 
         { errors.form && <div className="alert alert-danger"> {errors.form}</div>}
         
