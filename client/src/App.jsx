@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import io from 'socket.io-client';
-import SignupPage from './SignupPage.jsx';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import io from 'socket.io-client';
+import Main from './Main.jsx';
+import SignupPage from './SignupPage.jsx';
 import Greetings from './Greetings.jsx';
 import NavigationBar from './NavigationBar.jsx';
 import LoginPage from './LoginPage.jsx';
@@ -27,18 +28,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <NavigationBar />
-        <Route exact path="/" component={Greetings} />
-        <Route path="/signup" component={SignupPage} />
-        <Route path="/login" component={LoginPage} />
+      <div>
+        <div className="container">
+          <NavigationBar />
+        </div>
+        <h1><strong>Here are your matches:</strong></h1>
+        <Main />
       </div>
     );
   }
 }
-
-const style = {
-   margin: 15,
-};
 
 export default App;
