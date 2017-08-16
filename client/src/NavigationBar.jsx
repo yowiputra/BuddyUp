@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Dropdown from './Dropdown.jsx';
 import { connect } from 'react-redux';
 import { logout } from '../actions/loginActions.jsx'
+
 
 class NavigationBar extends Component {
 
@@ -29,6 +31,12 @@ class NavigationBar extends Component {
       </ul>
     );
 
+
+        <div className="collapse navbar-collapse">
+          <ul className="nav navbar-nav navbar-right">
+            <Dropdown className="navbar-brand" />
+          </ul>
+      
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">

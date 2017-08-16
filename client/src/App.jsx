@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import io from 'socket.io-client';
+import Main from './Main.jsx';
 import SignupPage from './SignupPage.jsx';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Greetings from './Greetings.jsx';
@@ -32,6 +34,13 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth;
 
     return (
+      <div>
+        <div className="container">
+          <NavigationBar />
+        </div>
+        <h1><strong>Here are your matches:</strong></h1>
+        <Main />
+
       <div className="container">
         <NavigationBar />
         <Route exact path="/" component={Greetings} />

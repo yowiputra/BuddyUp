@@ -1,5 +1,126 @@
 $brand-color: tomato;
 
-h1 {
-  color: $brand-color;
+body{
+  background: white;
+  margin: 0;
 }
+h1, h2 {
+  color: $brand-color;
+  display: flex;
+  justify-content: center;
+}
+nav {
+  background: peachpuff;
+  display: flex;
+  justify-content: space-between; 
+  padding: 10px;
+}
+  .title {
+    margin: 0;
+  }
+  .dropdown {
+    margin: 0;
+  }
+
+  .navbar, .navbar-default{
+    display: block;
+  }
+
+  .caret {
+    display: none;
+  }
+  
+.master-root {
+  margin: 20px auto;
+  height: 50px;
+  position: relative;
+  min-height: 400px;
+  max-height: 100px;
+  width: 300px;
+  overflow: hidden;
+  border: 1px solid grey;
+  padding: 0px 0px 10px 0px;
+  
+}
+
+  .card {
+  background: peachpuff;
+  background-size: cover;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  cursor: pointer;
+  height: 300px;
+  text-align: center;
+  margin: 0 auto;
+  position: absolute;
+  transition: box-shadow .3s;
+  width: 180px;
+}
+
+.card:hover {
+  background: khaki; 
+}
+
+.card-text-description {
+  font-size: small;
+  overflow-wrap: break-word;
+}
+.btn-poke{
+  margin: 50px;
+
+}
+.animate {
+  transition: transform .3s;
+  box-shadow: none;
+}
+
+.inactive {
+  box-shadow: none;
+}
+
+.alert {
+  width: 45%;
+  min-height: 10%;
+  position: absolute;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity .5s;
+  color: white;
+  vertical-align: middle;
+  line-height: 3rem;
+}
+
+.alert-visible {
+  opacity: 1;
+}
+
+.alert-right {
+  top: 0;
+  right: 0;
+  background: green;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+.alert-left {
+  top: 0;
+  left: 0;
+  background: red;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.alert-top {
+  background: purple;
+  border-radius: 50px;
+  transform: translate(-50%, 0);
+  margin-left: 50%;
+  }
+
+  .alert-bottom {
+  bottom: 0;
+  background: blue;
+  border-top-left-radius: 50px;
+  border-radius: 50px;
+  transform: translate(-50%, 0);
+  margin-left: 50%;
+  }
