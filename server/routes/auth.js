@@ -1,9 +1,9 @@
 require('dotenv').config();
 
-import express from 'express';
-import User from '../models/user.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken'
+const express = require('express');
+const User = require('../models/user.js');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 let router = express.Router();
 
@@ -20,6 +20,7 @@ router.post('/', (req, res) => {
           id: user.get('id'),
           username: user.get('username')
         }, process.env.JWT_SECRET);
+        console.log('IS THIS DA TOKEN?', token)
         res.json({ token })
       } else {
         res.status(401).json({ errors: { form: 'Invalid Credentials' } })
@@ -30,4 +31,4 @@ router.post('/', (req, res) => {
   })
 })
 
-export default router;
+module.exports = router;

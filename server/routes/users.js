@@ -1,9 +1,9 @@
-import express from 'express';
-import Validator from 'validator';
-import isEmpty from 'lodash/isEmpty'
-import bcrypt from 'bcrypt';
+const express = require('express');
+const Validator = require('validator');
+const isEmpty = require('lodash/isEmpty');
+const bcrypt = require('bcrypt');
 
-import User from '../models/user'
+const User = require('../models/user');
 let router = express.Router();
 
 function validateInput(data) {
@@ -51,4 +51,4 @@ router.post('/', (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

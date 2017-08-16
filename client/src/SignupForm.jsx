@@ -64,6 +64,7 @@ class SignupForm extends Component {
             onChange={this.onChange}
             value={this.state.password}
             field="password"
+            type="password"
           />
           <TextFieldGroup
             error={errors.passwordConfirmation}
@@ -71,6 +72,7 @@ class SignupForm extends Component {
             onChange={this.onChange}
             value={this.state.passwordConfirmation}
             field="passwordConfirmation"
+            type="password"
           />
 
           <div className="form-group">
