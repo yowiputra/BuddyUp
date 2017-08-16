@@ -9,12 +9,25 @@ import Greetings from './Greetings.jsx';
 import SignupPage from './SignupPage.jsx';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import setAuthorizationToken from '../utils/setAuthorizationToken.jsx'
+import jwt from 'jsonwebtoken';
+import { setCurrentUser } from '../actions/loginActions.jsx';
+import rootReducer from '../rootReducer.jsx'
 
 const store = createStore(
-  (state = {}) => state, 
-  applyMiddleware(thunk)
+  rootReducer,
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f)
 )
+
+if (localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+}
+setAuthorizationToken(localStorage.jwtToken);
+
 ReactDOM.render((
                   <Provider store={store}>
                     <Router>
