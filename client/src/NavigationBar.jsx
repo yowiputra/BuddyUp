@@ -8,6 +8,7 @@ class NavigationBar extends Component {
   logout(e) {
     e.preventDefault();
     this.props.logout();
+    this.context.router.history.push('/')
   }
 
   render () {
@@ -47,6 +48,10 @@ class NavigationBar extends Component {
 NavigationBar.PropTypes = {
   auth: React.PropTypes.object.isRequired,
   logout: React.PropTypes.func.isRequired
+}
+
+NavigationBar.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 
