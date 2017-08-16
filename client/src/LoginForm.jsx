@@ -30,7 +30,7 @@ class LoginForm extends Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true })
       this.props.login(this.state).then(
-      (res) => {this.context.router.history.push('/')},
+      (res) => {this.context.router.history.push('/matchmaker')},
       (err) => this.setState({ errors: err.data.errors, isLoading: false })
       );
     }
