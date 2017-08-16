@@ -20,23 +20,16 @@ nav {
   }
   .dropdown {
     margin: 0;
-    position: relative;
   }
 
-  .Menu {
-    left: 1010px;
-    position: absolute;
-    visibility: visible;
-    
-  }
-
-  .Menu:hover, .children:hover {
-    background: gainsboro;
-    cursor: pointer;
+  .navbar, .navbar-default{
     display: block;
-    visibility: visible;
   }
 
+  .caret {
+    display: none;
+  }
+  
 .master-root {
   margin: 20px auto;
   height: 50px;
