@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import io from 'socket.io-client';
-import Dropdown from './Dropdown.jsx';
 import Main from './Main.jsx';
 import SignupPage from './SignupPage.jsx';
 import Greetings from './Greetings.jsx';
@@ -32,9 +31,6 @@ class App extends Component {
       <div>
         <div className="container">
           <NavigationBar />
-          <Route exact path="/" component={Greetings} />
-          <Route path="/signup" component={SignupPage} />
-          <Route path="/login" component={LoginPage} />
         </div>
         <h1><strong>Here are your matches:</strong></h1>
         <Main />
