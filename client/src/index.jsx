@@ -14,6 +14,7 @@ import setAuthorizationToken from '../utils/setAuthorizationToken.jsx'
 import jwt from 'jsonwebtoken';
 import { setCurrentUser } from '../actions/loginActions.jsx';
 import rootReducer from '../rootReducer.jsx'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const store = createStore(
   rootReducer,
@@ -28,10 +29,18 @@ if (localStorage.jwtToken) {
 }
 setAuthorizationToken(localStorage.jwtToken);
 
-ReactDOM.render((
-  <Provider store={store}>
-    <Router>
-      <Route path="/" component={ App }>
-    </Route>
-    </Router>
-  </Provider> ), document.getElementById('react-root'));
+const Root = () => (
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <Router>
+        <Route path="/" component={App}>
+        </Route>
+      </Router>
+    </Provider>
+  </MuiThemeProvider>
+)
+
+ReactDOM.render(
+  <Root />, 
+  document.getElementById('react-root')
+);
