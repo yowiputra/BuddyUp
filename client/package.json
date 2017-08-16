@@ -2,7 +2,7 @@
   "name": "react-webpack-boilerplate",
   "version": "1.0.0",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server",
+    "start": "./node_modules/.bin/webpack-dev-server --hot",
     "webpack": "./node_modules/.bin/webpack"
   },
   "dependencies": {

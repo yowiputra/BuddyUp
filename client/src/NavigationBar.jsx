@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Dropdown from './Dropdown.jsx';
 import { connect } from 'react-redux';
 import { logout } from '../actions/loginActions.jsx'
-
+import { DropdownButton } from 'react-bootstrap';
+import { MenuItem } from 'react-bootstrap';
 
 class NavigationBar extends Component {
 
@@ -18,34 +18,29 @@ class NavigationBar extends Component {
     const { isAuthenticated } = this.props.auth;
 
     const userLinks = (
-      <ul className="nav navbar-nav navbar-right">
-        <li><Link to="/profile">Profile</Link></li>
-        <li><a href="#" onClick={this.logout.bind(this)}>Logout</a></li>
-      </ul>
+      <DropdownButton title="&#9776;">
+        <MenuItem href="/profile">Profile</MenuItem>
+        <MenuItem href="#" onClick={this.logout.bind(this)}>Logout</MenuItem>
+      </DropdownButton>
     );
 
     const guestLinks = (
-      <ul className="nav navbar-nav navbar-right">
-        <li><Link to="/signup">Sign up</Link></li>
-        <li><Link to="/login">Login</Link></li>
-      </ul>
+      <DropdownButton title="&#9776;">      
+        <MenuItem href="/signup">Sign up</MenuItem>
+        <MenuItem href="/login">Login</MenuItem>   
+      </DropdownButton>
     );
-
-
-        <div className="collapse navbar-collapse">
-          <ul className="nav navbar-nav navbar-right">
-            <Dropdown className="navbar-brand" />
-          </ul>
       
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="/" className="navbar-brand">Buddy Up</Link>
+            <Link to="/matchmaker" className="navbar-brand">Buddy Up</Link>
           </div>
-
           <div className="collapse navbar-collapse">
-            { isAuthenticated ? userLinks : guestLinks }
+            <ul className="nav navbar-nav navbar-right">
+              { isAuthenticated ? userLinks : guestLinks }  
+            </ul>
           </div>
         </div>
       </nav>
