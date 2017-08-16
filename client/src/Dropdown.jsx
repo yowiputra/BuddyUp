@@ -1,35 +1,16 @@
 import React, { Component } from 'react';
-import Menu from 'react-menu';
-
-const MenuTrigger = Menu.MenuTrigger;
-const MenuOptions = Menu.MenuOptions;
-const MenuOption = Menu.MenuOption;
+import { DropdownButton } from 'react-bootstrap';
+import { MenuItem } from 'react-bootstrap';
 
 class Dropdown extends Component {
   render () {
     return (
-      // the menu dropdown extends the whole navbar dimensions, instead of just extending within its own area
-      <Menu>
-        <MenuTrigger>
-          <p className="dropdown">
-            &#9776; 
-          </p>
-        </MenuTrigger>
-        <MenuOptions>
-          <MenuOption>
-            Profile
-          </MenuOption>
-          <MenuOption>
-            Log In
-          </MenuOption>
-          <MenuOption>
-            Log Out
-          </MenuOption>
-          <MenuOption>
-            Quit
-          </MenuOption>
-        </MenuOptions>
-      </Menu>
+      <DropdownButton title="&#9776;">
+        <MenuItem href="#">Profile</MenuItem>
+        <MenuItem href="/signup">Sign Up</MenuItem>
+        <MenuItem href="/login">Log In</MenuItem>
+        <MenuItem href="#">Log Out </MenuItem>
+      </DropdownButton>
     )
   }
 }
