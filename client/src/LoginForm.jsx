@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextFieldGroup from './common/TextFieldGroup.jsx';
-import { validateInput } from '../../server/validations/login.js'
+import validateInput from '../../server/validations/login.js'
 import { connect } from 'react-redux';
 import { login } from '../actions/loginActions.jsx'
 
