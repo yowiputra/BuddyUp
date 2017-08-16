@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../actions/loginActions.jsx'
-import { DropdownButton } from 'react-bootstrap';
-import { MenuItem } from 'react-bootstrap';
+// import { DropdownButton } from 'react-bootstrap';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+
+
 
 class NavigationBar extends Component {
 
@@ -18,17 +24,25 @@ class NavigationBar extends Component {
     const { isAuthenticated } = this.props.auth;
 
     const userLinks = (
-      <DropdownButton title="&#9776;">
-        <MenuItem href="/profile">Profile</MenuItem>
+      <IconMenu 
+        iconButtonElement={<IconButton><MenuIcon /></IconButton>} 
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}} 
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem containerElement={<Link to="/profile" />} primaryText="Profile" />
         <MenuItem href="#" onClick={this.logout.bind(this)}>Logout</MenuItem>
-      </DropdownButton>
+      </IconMenu>
     );
 
     const guestLinks = (
-      <DropdownButton title="&#9776;">      
-        <MenuItem href="/signup">Sign up</MenuItem>
-        <MenuItem href="/login">Login</MenuItem>   
-      </DropdownButton>
+      <IconMenu 
+      iconButtonElement={<IconButton><MenuIcon /></IconButton>} 
+      anchorOrigin={{horizontal: 'right', vertical: 'top'}} 
+      targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem containerElement={<Link to="/login" />} primaryText="Login" />        
+        <MenuItem containerElement={<Link to="/signup" />} primaryText="Sign up" />
+      </IconMenu>
     );
       
     return (
