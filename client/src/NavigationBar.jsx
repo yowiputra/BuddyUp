@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Dropdown from './Dropdown.jsx';
 
 export default () => {
   return (
@@ -11,8 +12,7 @@ export default () => {
 
         <div className="collapse navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li><Link to="/signup">Sign up</Link></li>
-            <li><Link to="/login">Login</Link></li>
+            <Dropdown className="navbar-brand" />
           </ul>
         </div>
       </div>
