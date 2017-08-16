@@ -2,7 +2,7 @@
   "name": "react-webpack-boilerplate",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon server.js --exec babel-node --presets es2015,stage-2"
+    "start": "nodemon server.js --exec babel-node --presets es2015,stage-2 --debug"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -19,6 +19,7 @@
     "nodemon": "^1.11.0",
     "pg": "^7.1.0",
     "socket.io": "^2.0.3",
+    "socketio-jwt": "^4.5.0",
     "validator": "^8.0.0"
   },
   "devDependencies": {

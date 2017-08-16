@@ -12,8 +12,8 @@ const knex        = require("knex")(knexConfig[ENV]);
 const socketio    = require('socket.io');
 const helmet      = require('helmet');
 
-import users from './routes/users.js'
-import auth from './routes/auth.js'
+const users = require('./routes/users.js');
+const auth = require('./routes/auth.js');
 
 // external files
 const socketEvent = require('./sockets.js');
@@ -42,7 +42,7 @@ app.use('/api/auth', auth);
 
 
 // socket.io listener
-socketEvent(io);
+socketEvent(io, knex);
 
 // server listener
 server.listen(PORT, () => {
