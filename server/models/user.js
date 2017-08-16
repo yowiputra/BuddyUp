@@ -1,5 +1,5 @@
-import bookshelf from '../bookshelf';
+const bookshelf = require('../bookshelf');
 
-export default bookshelf.Model.extend({
+module.exports = bookshelf.Model.extend({
   tableName: 'users'
 })

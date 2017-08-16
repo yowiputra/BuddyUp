@@ -1,8 +1,8 @@
-import Validator from 'validator';
-import isEmpty from 'lodash/isEmpty';
+const Validator = require('validator');
+const isEmpty = require('lodash/isEmpty');
 
 
-export function validateInput(data) {
+module.exports = function validateInput(data) {
   let errors = {};
 
   if (Validator.isEmpty(data.username)) {
