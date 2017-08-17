@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MatchmakerEvent from './MatchmakerEvent.jsx';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
+import Slider from './Slider.jsx';
 
 const socket = io.connect('http://localhost:3001');
 
@@ -31,6 +32,7 @@ class MatchmakerPage extends Component {
   render () {
     return (
       <div>
+        <Slider />
         <MatchmakerEvent />
       </div>
     );
