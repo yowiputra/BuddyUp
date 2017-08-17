@@ -18,6 +18,11 @@ module.exports = {
     inline: true,    
     hot: true    
   },
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+    ignored: /node_modules/
+  },
   module: {
     rules: [
       // https://webpack.js.org/loaders/babel-loader/
