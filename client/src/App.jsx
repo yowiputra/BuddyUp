@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import io from 'socket.io-client';
 import SignupPage from './SignupPage.jsx';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Greetings from './Greetings.jsx';
@@ -10,8 +9,6 @@ import ProfilePage from './ProfilePage.jsx';
 import MatchmakerPage from './MainApp/MatchmakerPage.jsx';
 import { connect } from 'react-redux';
 
-const socket = io.connect('http://127.0.0.1:3001');
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,13 +16,6 @@ class App extends Component {
       loginPage: [],
       uploadScreen: []
     }
-  }
-
-  componentDidMount() {
-    console.log("componentDidMount <App />");
-    socket.on("connect", function () {
-      console.log("Connected!");
-    });
   }
 
   render() {
@@ -38,7 +28,7 @@ class App extends Component {
         <Route path="/signup" component={SignupPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/profile" component={ProfilePage} />
-        <Route path="/matchmaker" render={() => ( isAuthenticated ? <MatchmakerPage /> : <Redirect to="/"/> )} />
+        <Route path="/matchmaker" render={() => ( isAuthenticated ? <MatchmakerPage/> : <Redirect to="/"/> )} />
       </div>
     );
   }

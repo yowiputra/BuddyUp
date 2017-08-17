@@ -1,7 +1,10 @@
+require('dotenv').config();
+
 const express = require('express');
 const Validator = require('validator');
 const isEmpty = require('lodash/isEmpty');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 let router = express.Router();
@@ -43,7 +46,14 @@ router.post('/', (req, res) => {
     User.forge({
       username, email, password_digest
     }, { hasTimestamps: true }).save()
-    .then(user => res.json({ success: true }))
+    .then(user => {
+      const token = jwt.sign({
+        id: user.attributes.id,
+        username: user.attributes.username
+      }, process.env.JWT_SECRET);
+      console.log('IS THIS DA TOKEN?', token);
+      res.json({ token });
+    })
     .catch(err => res.status(500).json({ error: err }));
 
   } else {
