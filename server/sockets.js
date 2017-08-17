@@ -7,10 +7,18 @@ module.exports = (io, knex) => {
 
   let compatUsers = [];
 
-  function queryCompatUsers(seriousness){
-    knex('users').where('seriousness','>',seriousness-5)
-      .andWhere('seriousness','<',seriousness+5)
+  function queryCompatUsers(username, seriousness){
+    knex('users').where('seriousness','>',seriousness-10)
+      .andWhere('seriousness','<',seriousness+10)
+      .andWhere('username','!=', username)
       .then(function(results) {
+
+        function sortFunction(record1,record2) {
+          var difference1 = Math.abs(seriousness - record1.seriousness);
+          var difference2 = Math.abs(seriousness - record2.seriousness);
+          return difference1 > difference2;
+      }
+        results.sort(sortFunction);
         compatUsers = results;
         console.log(compatUsers);
       })
@@ -19,8 +27,8 @@ module.exports = (io, knex) => {
   function queryUser(username){
     knex('users').where('username', username)
       .then(function(user) {
-        queryCompatUsers(user[0].seriousness);
-        console.log(user[0]);
+        queryCompatUsers(user[0].username,user[0].seriousness);
+        // console.log(user[0]);
       })
   }
 
