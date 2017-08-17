@@ -12,6 +12,7 @@ const knex        = require("knex")(knexConfig[ENV]);
 const socketio    = require('socket.io');
 const helmet      = require('helmet');
 
+const userData = require('./routes/userData.js')
 const users = require('./routes/users.js');
 const auth = require('./routes/auth.js');
 
@@ -32,9 +33,15 @@ app.use(express.static('public'));
 
 // routes setup
 // homepage
+
+
+app.use('/api/userdata', userData);
+
 app.get(/.*/, (req, res) => {
   res.render("index");
 });
+
+
 
 //registration
 app.use('/api/users', users);
