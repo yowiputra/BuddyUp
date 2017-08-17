@@ -5,12 +5,33 @@ const socketIoJwt = require('socketio-jwt');
 
 module.exports = (io, knex) => {
 
+  let compatUsers = [];
+
+  function queryCompatUsers(seriousness){
+    knex('users').where('seriousness','>',seriousness-5)
+      .andWhere('seriousness','<',seriousness+5)
+      .then(function(results) {
+        compatUsers = results;
+        console.log(compatUsers);
+      })
+  }
+
+  function queryUser(username){
+    knex('users').where('username', username)
+      .then(function(user) {
+        queryCompatUsers(user[0].seriousness);
+        console.log(user[0]);
+      })
+  }
+
   io.sockets
     .on('connection', socketIoJwt.authorize({
       secret: process.env.JWT_SECRET,
       timeout: 1000
     })).on('authenticated', function(socket) {
-      console.log('hello! ' + socket.decoded_token.username)
+      const currentUserName = socket.decoded_token.username;
+      console.log('hello! ' + currentUserName);
+      queryUser(currentUserName);
     });
 
   io.listen(IO_PORT, () => {
