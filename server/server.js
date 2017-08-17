@@ -32,21 +32,14 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 // routes setup
-// homepage
-
-
+app.use('/api/users', users);
+app.use('/api/auth', auth);
 app.use('/api/userdata', userData);
 
+// homepage
 app.get(/.*/, (req, res) => {
   res.render("index");
 });
-
-
-
-//registration
-app.use('/api/users', users);
-app.use('/api/auth', auth);
-
 
 // socket.io listener
 socketEvent(io, knex);
