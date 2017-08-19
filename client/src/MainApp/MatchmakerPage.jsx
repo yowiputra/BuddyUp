@@ -3,6 +3,7 @@ import MatchmakerEvent from './MatchmakerEvent.jsx';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import Slider from './Slider.jsx';
+import jwt from 'jsonwebtoken';
 
 class MatchmakerPage extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class MatchmakerPage extends Component {
   }
   
   updateCompat(users) {
+    //both users LC and Secret are included.
     this.setState({
       compatUsers: users
     })
@@ -46,8 +48,15 @@ class MatchmakerPage extends Component {
         console.log(JSON.parse(seriousness));
         c.updateDefaultValue(JSON.parse(seriousness));
       })
-      .on('updateCompatUsers', function(users) {
-        c.updateCompat(JSON.parse(users));
+      .on('onlinematchedSeriousnessUserIds', function(users) {
+        console.log('before filter ', JSON.parse(users));
+        console.log('jwt insides ', jwt.decode(localStorage.jwtToken).username);
+        const filteredUsers = JSON.parse(users).filter(user => user.username != jwt.decode(localStorage.jwtToken).username)
+        console.log('after filter ', filteredUsers);
+        c.updateCompat(filteredUsers);
+      })
+      .on('disconnect', function(){
+        this.socket.emit('disconnect');
       })
       console.log("Connected!");
     });
@@ -58,11 +67,15 @@ class MatchmakerPage extends Component {
     this.socket.emit('updateSeriousness', JSON.stringify({ value }));
   }
 
+  inviteUserB = (userData) => {
+    this.socket.emit('inviteUserB', JSON.stringify(userData));
+  }
+
   render () {
     return (
       <div>
         <Slider onSliderUpdate={ this.updateUserSeriousness } sliderDefaultValue={this.state.defaultValue}/>
-        <MatchmakerEvent compatUsers={this.state.compatUsers}/>
+        <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
       </div>
     );
   }

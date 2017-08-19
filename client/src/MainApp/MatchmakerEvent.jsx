@@ -16,7 +16,10 @@ class MatchmakerEvent extends Component {
                                    //make sure it's mobile responsive
                                    <Card
                                      onSwipeLeft={() => console.log('reject ' + item.username)}
-                                     onSwipeRight={() => console.log('accept ' + item.username)}>
+                                     onSwipeRight={() => {
+                                      console.log('accept ' + item.username);
+                                      this.props.inviteUserB(item);
+                                     }}>
                                      <h2>{item.username}</h2>
                                      <img className="avatar" src={item.imageurl} alt="avatar image"/> 
                                      <p className="card-text-description">{item.tagline}</p>
