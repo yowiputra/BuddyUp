@@ -7,12 +7,10 @@ class PopupChat extends Component {
     const content = (
       <div>
         <span>MessageList</span>
-        <footer>
           <input 
             className = "chat-message" 
             placeholder = "Type a message and hit ENTER"
           />
-        </footer>
         <button className="demo-button" onClick={ this.updatePopupbox }>Send</button>
       </div>
     )
@@ -53,13 +51,6 @@ class PopupChat extends Component {
     })
   }
 
-   //sends username text and color to client-side App.jsx when enter is pressed
-  //  onUserPost(keyPressed) {
-  //   const enterPressed = keyPressed.key;
-  //   if (enterPressed === 'Enter') {
-  //     this.props.onNewPost('postNotification',this.state.user,'',this.state.color);
-  //   }
-  // }
   render() {
     return (
     //Pop up currently triggered by a button click
