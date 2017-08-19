@@ -67,6 +67,8 @@ module.exports = (io, knex) => {
       console.log('hello! ' + currentUserName);    
       
       if (!onlineUsers[currentUserName]) {
+        exports.currentUserName = currentUserName;
+        socket.emit('authenticated', currentUserName);        
         onlineUsers[currentUserName] = {user: socket.decoded_token, socket: socket};
       }
 
