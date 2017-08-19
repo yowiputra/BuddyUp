@@ -12,9 +12,10 @@ const knex        = require("knex")(knexConfig[ENV]);
 const socketio    = require('socket.io');
 const helmet      = require('helmet');
 
-const userData = require('./routes/userData.js')
-const users = require('./routes/users.js');
-const auth = require('./routes/auth.js');
+const userData    = require('./routes/userData.js')
+const users       = require('./routes/users.js');
+const auth        = require('./routes/auth.js');
+const profileUpdate = require('./routes/profileUpdate.js')
 
 // external files
 const socketEvent = require('./sockets.js');
@@ -47,6 +48,8 @@ app.get(/.*/, (req, res) => {
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 
+//profile update
+app.use('/api/profileupdate', profileUpdate)
 
 // socket.io listener
 socketEvent(io, knex);

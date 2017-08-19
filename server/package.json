@@ -18,6 +18,7 @@
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
     "pg": "^7.1.0",
+    "pryjs": "^1.0.3",
     "socket.io": "^2.0.3",
     "socketio-jwt": "^4.5.0",
     "validator": "^8.0.0"
