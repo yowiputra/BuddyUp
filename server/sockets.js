@@ -9,6 +9,7 @@ const pry = require('pryjs');
 module.exports = (io, knex) => {
 
   let compatUsers = [];
+  let currentUserData = {};
   const onlineUsers = {};
 
   function queryCompatUsers(username, seriousness){
@@ -46,11 +47,6 @@ module.exports = (io, knex) => {
       const {user, socket} = onlineUsers[userName];
       getSeriousness(userName).then((data) => {
         queryCompatUsers(userName, data[0].seriousness).then((users) => {
-          // console.log('Before filter ', users)
-          // //this filtration is working for getting out the user who is not online.
-          // const matchUsers = users.filter(value => value.username !== userName)
-          // console.log("After filter ", matchUsers)
-          // sockets.forEach(socket => {
             io.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users));
           // })
         })
@@ -64,23 +60,23 @@ module.exports = (io, knex) => {
       timeout: 1000
     })).on('authenticated', function(socket) {
       const currentUserName = socket.decoded_token.username;
-      console.log('hello! ' + currentUserName);    
-      
+      console.log('hello! ' + currentUserName);
+
       if (!onlineUsers[currentUserName]) {
         exports.currentUserName = currentUserName;
-        socket.emit('authenticated', currentUserName);        
+        socket.emit('authenticated', currentUserName);
         onlineUsers[currentUserName] = {user: socket.decoded_token, socket: socket};
       }
 
       console.log('after auth ', onlineUsers);
 
       broadcastUpdatedOnlineList();
-      
+
       // Initial Load
       queryUser(currentUserName).then(user => {
+        currentUserData = user[0];
         socket.emit('getDefaultSeriousness', JSON.stringify(user[0].seriousness));
         queryCompatUsers(user[0].username, user[0].seriousness).then(users => {
-          // const filteredUsers = users.filter(user => user.username != currentUserName);
           socket.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users));
         });
       });
@@ -94,12 +90,17 @@ module.exports = (io, knex) => {
       });
 
       // Initial invite
-      socket.on('inviteUserB', function(userData) {
-        console.log("invite received");
+      socket.on('sendInvite', function(currentUserName, userData) {
+        const parsedUserData = JSON.parse(userData);
+        console.log("invite sent by ", currentUserName, " to ", parsedUserData.username);
+        const room = currentUserName + ' ' + parsedUserData.username;
+        const senderData = onlineUsers[currentUserName].user
+        socket.join(room);
+        socket.broadcast.emit('respondToInvite', JSON.stringify(senderData), userData);
       });
 
-      socket.on('disconnect', function(){ 
-        delete onlineUsers[currentUserName];
+      socket.on('disconnect', function(userName){
+        delete onlineUsers[userName];
         console.log('after delete on disconnect ', onlineUsers);
         broadcastUpdatedOnlineList();
       })

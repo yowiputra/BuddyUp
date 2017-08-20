@@ -10,18 +10,18 @@ class MatchmakerPage extends Component {
     super(props);
     this.state = {
       compatUsers: [],
-      defaultValue: 90,
+      defaultValue: 50,
       currentUserName: ''
     };
     this.updateCompat = this.updateCompat.bind(this);
     this.updateDefaultValue = this.updateDefaultValue.bind(this);
     this.updateCurrentUserName = this.updateCurrentUserName.bind(this);
   }
-  
+
   updateCompat(users) {
-    //both users LC and Secret are included.
+    const filteredUsers = users.filter(user => user.username != this.state.currentUserName);
     this.setState({
-      compatUsers: users
+      compatUsers: filteredUsers
     })
   }
 
@@ -40,10 +40,10 @@ class MatchmakerPage extends Component {
   componentDidMount() {
     console.log("componentDidMount <App />");
     this.socket = io.connect('http://localhost:3001');
-    
+
     var c = this;
     this.socket.on("connect", () => {
-      console.log("Connected!");      
+      console.log("Connected!");
       this.socket
       .emit('authenticate', {token: localStorage.jwtToken}) //send the jwt
       .on('authenticated', function (username) {
@@ -59,13 +59,19 @@ class MatchmakerPage extends Component {
         c.updateDefaultValue(JSON.parse(seriousness));
       })
       .on('onlinematchedSeriousnessUserIds', function(users) {
-        console.log('before filter ', JSON.parse(users));
-        const filteredUsers = JSON.parse(users).filter(user => user.username != c.state.currentUserName)
-        console.log('after filter ', filteredUsers);
-        c.updateCompat(filteredUsers);
+        c.updateCompat(JSON.parse(users));
+      })
+      .on('respondToInvite', function(senderData, receiverData){
+        const parsedReceiverData = JSON.parse(receiverData);
+        if(parsedReceiverData.username === c.state.currentUserName){
+          const parsedSenderData = JSON.parse(senderData);
+          const senderDataArr = c.state.compatUsers.filter(user => user.username === parsedSenderData.username)
+          const senderData = senderDataArr[0];
+          console.log('Respond to ', senderData.username, ' ?');
+        }
       })
       .on('disconnect', function(){
-        this.socket.emit('disconnect');
+        this.socket.emit('disconnect', c.state.currentUserName);
       })
     });
   }
@@ -76,7 +82,7 @@ class MatchmakerPage extends Component {
   }
 
   inviteUserB = (userData) => {
-    this.socket.emit('inviteUserB', JSON.stringify(userData));
+    this.socket.emit('sendInvite', this.state.currentUserName, JSON.stringify(userData));
   }
 
   render () {
