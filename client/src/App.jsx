@@ -8,10 +8,7 @@ import LoginPage from './LoginPage.jsx';
 import ProfilePage from './ProfilePage.jsx';
 import MatchmakerPage from './MainApp/MatchmakerPage.jsx';
 import { connect } from 'react-redux';
-<<<<<<< .merge_file_u8mSQe
-=======
 import ProfileForm from './ProfileForm.jsx';
->>>>>>> .merge_file_0pGOOq
 
 class App extends Component {
   constructor(props) {
@@ -32,10 +29,7 @@ class App extends Component {
         <Route path="/login" component={LoginPage} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="/matchmaker" render={() => ( isAuthenticated ? <MatchmakerPage/> : <Redirect to="/"/> )} />
-<<<<<<< .merge_file_u8mSQe
-=======
         <Route path="/profileupdate" component={ProfileForm} />
->>>>>>> .merge_file_0pGOOq
       </div>
     );
   }
