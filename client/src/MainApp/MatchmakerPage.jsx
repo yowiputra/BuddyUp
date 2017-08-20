@@ -71,7 +71,7 @@ class MatchmakerPage extends Component {
         }
       })
       .on('disconnect', function(){
-        this.socket.emit('disconnect', c.state.currentUserName);
+        this.socket.emit('disconnect');
       })
     });
   }
