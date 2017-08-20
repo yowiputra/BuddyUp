@@ -30,13 +30,11 @@ class PopupChat extends Component {
     const content = (
       <div>
         <span>MessageList</span>
-        <footer>
           <input 
             className = "chat-message" 
             placeholder = "Type a message and hit ENTER"
           />
           <button className="demo-button" onClick={ this.openPopupbox }>Send</button>
-        </footer>
       </div>
     )
 
