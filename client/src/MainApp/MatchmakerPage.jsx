@@ -19,7 +19,10 @@ class MatchmakerPage extends Component {
   }
 
   updateCompat(users) {
+    console.log('before filter ', users);
+    console.log('filter ', this.state.currentUserName);
     const filteredUsers = users.filter(user => user.username != this.state.currentUserName);
+    console.log('after filter ', filteredUsers);
     this.setState({
       compatUsers: filteredUsers
     })
@@ -58,13 +61,16 @@ class MatchmakerPage extends Component {
         console.log(JSON.parse(seriousness));
         c.updateDefaultValue(JSON.parse(seriousness));
       })
-      .on('onlinematchedSeriousnessUserIds', function(users) {
+      .on('onlinematchedSeriousnessUserIds', function(users, username) {
+        c.updateCurrentUserName(username);
         c.updateCompat(JSON.parse(users));
       })
       .on('respondToInvite', function(senderData, receiverData){
+        console.log('sender ', senderData);
+        console.log('receiver ', receiverData);
+        const parsedSenderData = JSON.parse(senderData);
         const parsedReceiverData = JSON.parse(receiverData);
         if(parsedReceiverData.username === c.state.currentUserName){
-          const parsedSenderData = JSON.parse(senderData);
           const senderDataArr = c.state.compatUsers.filter(user => user.username === parsedSenderData.username)
           const senderData = senderDataArr[0];
           console.log('Respond to ', senderData.username, ' ?');

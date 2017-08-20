@@ -44,8 +44,9 @@ module.exports = (io, knex) => {
     for (const userName in onlineUsers) {
       const {user, socket} = onlineUsers[userName];
       getSeriousness(userName).then((data) => {
+        socket.emit('getDefaultSeriousness', JSON.stringify(data[0].seriousness));
         queryCompatUsers(userName, data[0].seriousness).then((users) => {
-            socket.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users));
+            socket.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users), userName);
         })
       })
     }
@@ -65,16 +66,15 @@ module.exports = (io, knex) => {
       }
 
       console.log('after auth ', onlineUsers);
-
       broadcastUpdatedOnlineList();
 
       // Initial Load
-      queryUser(currentUserName).then(user => {
-        socket.emit('getDefaultSeriousness', JSON.stringify(user[0].seriousness));
-        queryCompatUsers(user[0].username, user[0].seriousness).then(users => {
-          socket.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users));
-        });
-      });
+      // queryUser(currentUserName).then(user => {
+      //   socket.emit('getDefaultSeriousness', JSON.stringify(user[0].seriousness));
+      //   queryCompatUsers(user[0].username, user[0].seriousness).then(users => {
+      //     socket.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users));
+      //   });
+      // });
 
       // Update seriousness after slider change
       socket.on('updateSeriousness', function(data) {
@@ -90,6 +90,7 @@ module.exports = (io, knex) => {
         console.log("invite sent by ", currentUserName, " to ", parsedUserData.username);
         const room = currentUserName + ' ' + parsedUserData.username;
         const senderData = onlineUsers[currentUserName].user
+        console.log('sender data ', senderData)
         socket.join(room);
         socket.broadcast.emit('respondToInvite', JSON.stringify(senderData), userData);
       });
