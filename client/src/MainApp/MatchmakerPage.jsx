@@ -11,11 +11,38 @@ class MatchmakerPage extends Component {
     this.state = {
       compatUsers: [],
       defaultValue: 50,
-      currentUserName: ''
+      currentUserName: '',
+      ownUserName: this.props.auth.user.username,
+      messages: [],
     };
     this.updateCompat = this.updateCompat.bind(this);
     this.updateDefaultValue = this.updateDefaultValue.bind(this);
     this.updateCurrentUserName = this.updateCurrentUserName.bind(this);
+    this.newPost = this.newPost.bind(this)
+  }
+
+  newPost(post) {
+    const socket = this.props.socket
+    const message = {
+      type: "postMessage",
+      username: this.state.ownUserName,
+      message: post,
+    }
+    // ws.send(JSON.stringify(message))
+    this.setState({ input: ''})
+    // console.log(JSON.stringify(message))
+    const chatbar = document.getElementById('chatbar');
+    chatbar.value = '';
+    this.socket.emit('send message', JSON.stringify(message))
+    console.log('message sent')
+  }
+
+  updateMessages(data) {
+    const broadcastedMessage = this.state.messages.concat(data);
+    this.setState({
+      messages: broadcastedMessage
+    });
+    console.log('this.set.messages: ', this.state.messages)
   }
 
   updateCompat(users) {
@@ -70,6 +97,13 @@ class MatchmakerPage extends Component {
           console.log('Respond to ', senderData.username, ' ?');
         }
       })
+      .on('new message', function(data){
+        const messageData = JSON.parse(data)
+        const message = {username: messageData.username,
+                          content: messageData.message,}
+        console.log(message)
+        c.updateMessages(message);
+      })
       .on('disconnect', function(){
         this.socket.emit('disconnect', c.state.currentUserName);
       })
@@ -89,10 +123,20 @@ class MatchmakerPage extends Component {
     return (
       <div>
         <Slider onSliderUpdate={ this.updateUserSeriousness } sliderDefaultValue={this.state.defaultValue}/>
-        <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
+        <MatchmakerEvent newPost={this.newPost} ownUserName={this.state.ownUserName} messages={this.state.messages} compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
       </div>
     );
   }
 }
 
-export default MatchmakerPage;
+MatchmakerPage.PropTypes = {
+  auth: React.PropTypes.object.isRequired,
+}
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps)(MatchmakerPage);

@@ -10,7 +10,7 @@ class MatchmakerEvent extends Component {
     console.log(data)
     return (
       <div>
-        <PopupChat /> 
+        <PopupChat newPost={this.props.newPost} ownUserName={this.props.ownUserName} messages={this.props.messages} /> 
         <Cards onEnd={() => console.log('end')} className='master-root'>
           { 
             data.map(item =>
