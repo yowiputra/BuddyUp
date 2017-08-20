@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { currentUserDataRequest } from '../actions/userDataActions.jsx'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 class Profile extends Component {
@@ -25,17 +26,27 @@ class Profile extends Component {
         email: data.email,
         tagline: data.tagline,
         blurb: data.blurb,
-        imageurl: data.imageurl
+        imageurl: `https://api.adorable.io/avatars/285/${data.username}@adorable.io.png`,
        })
     });
   }
 
   render() {
     const { username, email, tagline, blurb, imageurl } = this.state
+    console.log(imageurl);
     return (
-      <div>
-        <p>{username + email + tagline + blurb + imageurl}</p>
+      
+      <div className="jumbotron">
+        <div className="text-center">
+          <img className="img-circle bordered-image" src={this.state.imageurl} />
+          <h1>{username}</h1>
+
+          <h2 className="text-muted">{tagline}</h2>
+          <p>{blurb}</p>
+            <Link to="/profileupdate" className="btn btn-primary btn-lg">Edit Profile</Link>
+        </div>
       </div>
+
     );
   }
 }

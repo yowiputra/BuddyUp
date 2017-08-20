@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import Cards, { Card } from 'react-swipe-card'
+import React, { Component } from 'react';
+import Cards, { Card } from 'react-swipe-card';
+import PopupChat from './PopupChat.jsx';
 
 class MatchmakerEvent extends Component {
   render () {
@@ -9,6 +10,7 @@ class MatchmakerEvent extends Component {
     console.log(data)
     return (
       <div>
+        <PopupChat /> 
         <Cards onEnd={() => console.log('end')} className='master-root'>
           { 
             data.map(item =>
