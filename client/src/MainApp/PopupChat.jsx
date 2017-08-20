@@ -46,7 +46,6 @@ class PopupChat extends Component {
             <span >{message.username}: {message.content}</span>
           </div>);
         })
-
     const content = (
       <div>
         <span>{messageList}</span>
