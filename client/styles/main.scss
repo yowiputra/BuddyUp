@@ -126,7 +126,10 @@ nav {
   border-radius: 50px;
   transform: translate(-50%, 0);
   margin-left: 50%;
+
 }
+
+//css style for pop up box
 
 .popupbox {
   width:100%;
@@ -144,7 +147,7 @@ nav {
   opacity: 0;
   pointer-events: none;
   z-index: 1000;
-};
+}
 
 .popupbox[hidden] {
   display: none;
@@ -283,34 +286,4 @@ nav {
   margin-top: 8px;  
   position: fixed;
   width:250px;
-}
-
-.bordered-image {
-  border: 3px solid black;
-  width: 25%;
-  height: 25%;
-}
-
-.matchmaker-container {
-  display: flex;
-  flex-direction: column;
-}
-
-
-.matchmakerEventAndChat-container {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-#chatbar {
-  width: 300px;
-  border: black solid 1px;
-}
-
-.messagelist {
-  border: black solid 1px;  
-  height: 300px;
-  width: 300px;
-  overflow: auto;
-  word-wrap: normal;
 }
