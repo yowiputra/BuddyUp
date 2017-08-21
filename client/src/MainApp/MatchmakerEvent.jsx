@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Cards, { Card } from 'react-swipe-card';
-import PopupChat from './PopupChat.jsx';
 
 class MatchmakerEvent extends Component {
   render () {

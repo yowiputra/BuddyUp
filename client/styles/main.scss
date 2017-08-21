@@ -34,7 +34,7 @@ nav {
   }
 // card swipe styles  
 .master-root {
-  margin: 20px auto;
+  // margin: 20px auto;
   height: 50px;
   position: relative;
   min-height: 400px;
@@ -126,7 +126,10 @@ nav {
   border-radius: 50px;
   transform: translate(-50%, 0);
   margin-left: 50%;
+
 }
+
+//css style for pop up box
 
 .popupbox {
   width:100%;
@@ -144,7 +147,7 @@ nav {
   opacity: 0;
   pointer-events: none;
   z-index: 1000;
-};
+}
 
 .popupbox[hidden] {
   display: none;
@@ -291,3 +294,26 @@ nav {
   height: 25%;
 }
 
+.matchmaker-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.matchmakerEventAndChat-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#chatbar {
+  border: black solid 1px;  
+  width: 300px;
+}
+
+.messagelist {
+  border: black solid 1px;  
+  height: 300px;
+  width: 300px;
+  overflow: auto;
+  word-wrap: normal;
+}
