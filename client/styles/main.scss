@@ -126,7 +126,10 @@ nav {
   border-radius: 50px;
   transform: translate(-50%, 0);
   margin-left: 50%;
+
 }
+
+//css style for pop up box
 
 .popupbox {
   width:100%;
@@ -144,7 +147,7 @@ nav {
   opacity: 0;
   pointer-events: none;
   z-index: 1000;
-};
+}
 
 .popupbox[hidden] {
   display: none;

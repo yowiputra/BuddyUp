@@ -17,7 +17,7 @@ class PopupChat extends Component {
   componentDidMount() {
     console.log("PopupChat component mounted");
   }
-
+  
   // newPost() {
   //   const socket = this.props.socket
   //   const message = {
