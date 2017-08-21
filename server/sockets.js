@@ -61,7 +61,6 @@ module.exports = (io, knex) => {
       console.log('hello! ' + currentUserName);
 
       if (!onlineUsers[currentUserName]) {
-        socket.emit('authenticated', currentUserName);
         onlineUsers[currentUserName] = {user: socket.decoded_token, socket: socket};
       }
 
@@ -88,10 +87,8 @@ module.exports = (io, knex) => {
       socket.on('sendInvite', function(currentUserName, userData) {
         const parsedUserData = JSON.parse(userData);
         console.log("invite sent by ", currentUserName, " to ", parsedUserData.username);
-        const room = currentUserName + ' ' + parsedUserData.username;
         const senderData = onlineUsers[currentUserName].user
         console.log('sender data ', senderData)
-        socket.join(room);
         socket.broadcast.emit('respondToInvite', JSON.stringify(senderData), userData);
       });
 

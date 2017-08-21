@@ -50,8 +50,7 @@ class MatchmakerPage extends Component {
       this.socket
       .emit('authenticate', {token: localStorage.jwtToken}) //send the jwt
       .on('authenticated', function (username) {
-        console.log("DID THIS AUTHENTICATE??!!!", username);
-        c.updateCurrentUserName(username);
+        console.log("Authenticated");
       })
       .on('unauthorized', function(msg) {
         console.log("unauthorized: " + JSON.stringify(msg.data));
