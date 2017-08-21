@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 //Used react-popupbox because of ease of integration. However, if given more time, would have switched it to the official reactjs 'react-modal' package that has the same functionality https://reactcommunity.org/react-modal/
-import { PopupboxManager, PopupboxContainer } from 'react-popupbox';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
@@ -39,75 +38,34 @@ class PopupChat extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  openPopupbox = () => {
-    
+  render() {
     const messageList = this.props.messages.map((message) => {
           return (<div key={message.id} className="message">
             <span >{message.username}: {message.content}</span>
           </div>);
         })
-    const content = (
-      <div>
-        <span>{messageList}</span>
-        <input
-          name="input"
-          id="chatbar"
-          className="chat-message"
-          placeholder="Type a message and hit ENTER"
-          onChange={this.onChange}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter') {
-              this.props.newPost(this.state.input);
-            }
-          }}
-        />
-      </div>
-    )
-
-    PopupboxManager.open({
-      content,
-      config: {
-        titleBar: {
-          enable: true,
-          text: `From: ${this.state.currentUser}`
-        }
-      }
-    })
-  }
-
-  // updatePopupbox = () => {
-  //   const content = (
-  //     <div>
-  //       <span>MessageList</span>
-  //       <footer>
-  //         <input 
-  //           className = "chat-message" 
-  //           placeholder = "Type a message and hit ENTER"
-  //         />
-  //         <button className="demo-button" onClick={ this.openPopupbox }>Send</button>
-  //       </footer>
-  //     </div>
-  //   )
-
-  //   PopupboxManager.update({
-  //     content,
-  //     config: {
-  //       titleBar: {
-  //         text:'From: Username B',
-  //         closeButton: true
-  //       }
-  //     }
-  //   })
-  // }
-
-  render() {
-
     return (
       //Pop up currently triggered by a button click
       //Eventually, the popup should be activated by an accepted invitation from a potential teammate
-      <div>
-        <button className="popupbox-trigger" onClick={this.openPopupbox}>Click me</button>
-        <PopupboxContainer />
+      <div className="bordered">
+        <div className="messagelist">{messageList}</div>
+
+        <div>
+          <input
+            name="input"
+            id="chatbar"
+            placeholder="Type a message and hit ENTER"
+            onChange={this.onChange}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                this.props.newPost(this.state.input);
+                const element = document.getElementsByClassName('messagelist');
+                element.scrollIntoView(false);
+              }
+            }}
+          />
+        </div>
+
       </div>
     )
   }

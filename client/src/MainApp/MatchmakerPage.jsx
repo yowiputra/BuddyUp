@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import Slider from './Slider.jsx';
 import jwt from 'jsonwebtoken';
+import PopupChat from './PopupChat.jsx';
 
 class MatchmakerPage extends Component {
   constructor(props) {
@@ -121,9 +122,18 @@ class MatchmakerPage extends Component {
 
   render () {
     return (
-      <div>
-        <Slider onSliderUpdate={ this.updateUserSeriousness } sliderDefaultValue={this.state.defaultValue}/>
-        <MatchmakerEvent newPost={this.newPost} ownUserName={this.state.ownUserName} messages={this.state.messages} compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
+      <div className="matchmaker-container">
+        <div className="slider-container">
+          <Slider onSliderUpdate={ this.updateUserSeriousness } sliderDefaultValue={this.state.defaultValue}/>
+        </div>
+        <div className="matchmakerEventAndChat-container">
+          <div>
+            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>  
+          </div>
+          <div>     
+            <PopupChat newPost={this.newPost} ownUownUserName={this.state.ownUserName} messages={this.state.messages} /> 
+          </div>
+        </div>
       </div>
     );
   }
