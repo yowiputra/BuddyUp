@@ -32,7 +32,7 @@ class SignupForm extends Component {
     this.setState({ errors:{}, isLoading: true });
     this.props.userSignupRequest(this.state).then(
       () => {
-        this.context.router.history.push('/matchmaker');
+        this.context.router.history.push('/profileupdate');
         window.location.reload();        
       },
       ({ data }) => this.setState({ errors:data, isLoading: false })
