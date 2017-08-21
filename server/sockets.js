@@ -59,21 +59,11 @@ module.exports = (io, knex) => {
     })).on('authenticated', function(socket) {
       const currentUserName = socket.decoded_token.username;
       console.log('hello! ' + currentUserName);
-
       if (!onlineUsers[currentUserName]) {
         onlineUsers[currentUserName] = {user: socket.decoded_token, socket: socket};
       }
-
       console.log('after auth ', onlineUsers);
       broadcastUpdatedOnlineList();
-
-      // Initial Load
-      // queryUser(currentUserName).then(user => {
-      //   socket.emit('getDefaultSeriousness', JSON.stringify(user[0].seriousness));
-      //   queryCompatUsers(user[0].username, user[0].seriousness).then(users => {
-      //     socket.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users));
-      //   });
-      // });
 
       // Update seriousness after slider change
       socket.on('updateSeriousness', function(data) {
