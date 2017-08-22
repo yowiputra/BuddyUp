@@ -24,9 +24,9 @@ class NavigationBar extends Component {
     const { isAuthenticated } = this.props.auth;
 
     const userLinks = (
-      <IconMenu 
-        iconButtonElement={<IconButton><MenuIcon /></IconButton>} 
-        anchorOrigin={{horizontal: 'right', vertical: 'top'}} 
+      <IconMenu
+        iconButtonElement={<IconButton><MenuIcon /></IconButton>}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
         <MenuItem containerElement={<Link to="/profile" />} primaryText="Profile" />
@@ -35,32 +35,32 @@ class NavigationBar extends Component {
     );
 
     const guestLinks = (
-      <IconMenu 
-      iconButtonElement={<IconButton><MenuIcon /></IconButton>} 
-      anchorOrigin={{horizontal: 'right', vertical: 'top'}} 
+      <IconMenu
+      iconButtonElement={<IconButton><MenuIcon /></IconButton>}
+      anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem containerElement={<Link to="/login" />} primaryText="Login" />        
+        <MenuItem containerElement={<Link to="/login" />} primaryText="Login" />
         <MenuItem containerElement={<Link to="/signup" />} primaryText="Sign up" />
       </IconMenu>
     );
-      
+
     return (
       <nav className="navbar navbar-custom navbar-fixed-top" role="navigation">
-      <div className="container">
-        <div className="navbar-header page-scroll">
-          <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-            <i className="fa fa-bars"></i>
-          </button>
-          <Link to="/matchmaker" className="navbar-brand">BuddyUp</Link>
+        <div className="container">
+          <div className="navbar-header page-scroll">
+            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+              <i className="fa fa-bars"></i>
+            </button>
+            <Link to="/matchmaker" className="navbar-brand">BuddyUp</Link>
+          </div>
+          <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul className="nav navbar-nav navbar-right">
+              { isAuthenticated ? userLinks : guestLinks }
+            </ul>
+          </div>
         </div>
-        <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
-          <ul className="nav navbar-nav navbar-right">
-            { isAuthenticated ? userLinks : guestLinks }  
-          </ul>
-        </div>
-      </div>
-    </nav>
+      </nav>
     );
   }
 }
