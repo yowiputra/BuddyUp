@@ -29,7 +29,7 @@ class NavigationBar extends Component {
         anchorOrigin={{horizontal: 'right', vertical: 'top'}} 
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem containerElement={<Link to="/profile" />} primaryText="Profile" />
+        <MenuItem href="/profile" primaryText="Profile" />
         <MenuItem href="#" onClick={this.logout.bind(this)}>Logout</MenuItem>
       </IconMenu>
     );
@@ -49,7 +49,7 @@ class NavigationBar extends Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="/matchmaker" className="navbar-brand">Buddy Up</Link>
+              <a className="navbar-brand" href="/matchmaker">Buddy Up</a>
           </div>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav navbar-right">

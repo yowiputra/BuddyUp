@@ -75,6 +75,8 @@ module.exports = (io, knex) => {
 
       // Initial invite
       socket.on('sendInvite', function(currentUserName, userData) {
+        console.log('userData: ', userData)
+        console.log('currentUserName: ', currentUserName)
         const parsedUserData = JSON.parse(userData);
         console.log("invite sent by ", currentUserName, " to ", parsedUserData.username);
         const senderData = onlineUsers[currentUserName].user
@@ -95,6 +97,12 @@ module.exports = (io, knex) => {
       socket.on('send message', function(data) {
         console.log(data);
         io.sockets.emit('new message', data)
+      })
+      
+      socket.on('accepted invitation', function(senderData, receiverData) {
+        console.log('sender data:', senderData);
+        console.log('receiver data: ', receiverData)
+        io.sockets.emit('receive accepted invitation', senderData, receiverData)
       })
     })
 
