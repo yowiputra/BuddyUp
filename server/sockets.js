@@ -77,9 +77,11 @@ module.exports = (io, knex) => {
       socket.on('sendInvite', function(currentUserName, userData) {
         const parsedUserData = JSON.parse(userData);
         console.log("invite sent by ", currentUserName, " to ", parsedUserData.username);
-        const senderData = onlineUsers[currentUserName].user
-        console.log('sender data ', senderData)
-        socket.broadcast.emit('respondToInvite', JSON.stringify(senderData), userData);
+        queryUser(currentUserName).then((data) => {
+          const senderData = data[0];
+          console.log('sender data ', senderData);
+          socket.broadcast.emit('respondToInvite', JSON.stringify(senderData), userData);
+        })
       });
 
       socket.on('disconnect', function(){
