@@ -93,7 +93,29 @@ module.exports = (io, knex) => {
         console.log('after delete on disconnect ', onlineUsers);
         broadcastUpdatedOnlineList();
       })
+
+      socket.on('send message', function(data) {
+        console.log(data);
+        io.sockets.emit('new message', data)
+      })
     })
+
+    // const users = [];
+    // const connections = [];
+    // io.sockets.on('connection', function(socket){
+    //   connections.push(socket);
+    //   console.log('Connected: %s sockets connected:', connections.length)
+
+    //   //Disconnect
+    //   socket.on('disconnect', function(data){
+    //     connections.splice(connections.indexOf(socket), 1);
+    //     console.log('Disconnected: %s sockets connected:', connections.length)  
+    //   });
+
+    //   socket.on('message', function(data) {
+    //     console.log(data)
+    //   })
+    // });
 
   io.listen(IO_PORT, () => {
     console.log("Socket.io listening on port " + IO_PORT);

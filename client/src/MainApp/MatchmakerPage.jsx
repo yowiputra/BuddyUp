@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import Slider from './Slider.jsx';
 import jwt from 'jsonwebtoken';
+import PopupChat from './PopupChat.jsx';
 
 class MatchmakerPage extends Component {
   constructor(props) {
@@ -11,11 +12,38 @@ class MatchmakerPage extends Component {
     this.state = {
       compatUsers: [],
       defaultValue: 50,
-      currentUserName: ''
+      currentUserName: '',
+      ownUserName: this.props.auth.user.username,
+      messages: [],
     };
     this.updateCompat = this.updateCompat.bind(this);
     this.updateDefaultValue = this.updateDefaultValue.bind(this);
     this.updateCurrentUserName = this.updateCurrentUserName.bind(this);
+    this.newPost = this.newPost.bind(this)
+  }
+
+  newPost(post) {
+    const socket = this.props.socket
+    const message = {
+      type: "postMessage",
+      username: this.state.ownUserName,
+      message: post,
+    }
+    // ws.send(JSON.stringify(message))
+    this.setState({ input: ''})
+    // console.log(JSON.stringify(message))
+    const chatbar = document.getElementById('chatbar');
+    chatbar.value = '';
+    this.socket.emit('send message', JSON.stringify(message))
+    console.log('message sent')
+  }
+
+  updateMessages(data) {
+    const broadcastedMessage = this.state.messages.concat(data);
+    this.setState({
+      messages: broadcastedMessage
+    });
+    console.log('this.set.messages: ', this.state.messages)
   }
 
   updateCompat(users) {
@@ -75,6 +103,13 @@ class MatchmakerPage extends Component {
           console.log('Respond to ', senderData.username, ' ?');
         }
       })
+      .on('new message', function(data){
+        const messageData = JSON.parse(data)
+        const message = {username: messageData.username,
+                          content: messageData.message,}
+        console.log(message)
+        c.updateMessages(message);
+      })
       .on('disconnect', function(){
         this.socket.emit('disconnect');
       })
@@ -92,12 +127,31 @@ class MatchmakerPage extends Component {
 
   render () {
     return (
-      <div>
-        <Slider onSliderUpdate={ this.updateUserSeriousness } sliderDefaultValue={this.state.defaultValue}/>
-        <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
+      <div className="matchmaker-container">
+        <div className="slider-container">
+          <Slider onSliderUpdate={ this.updateUserSeriousness } sliderDefaultValue={this.state.defaultValue}/>
+        </div>
+        <div className="matchmakerEventAndChat-container">
+          <div>
+            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>  
+          </div>
+          <div>     
+            <PopupChat newPost={this.newPost} ownUownUserName={this.state.ownUserName} messages={this.state.messages} /> 
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-export default MatchmakerPage;
+MatchmakerPage.PropTypes = {
+  auth: React.PropTypes.object.isRequired,
+}
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps)(MatchmakerPage);
