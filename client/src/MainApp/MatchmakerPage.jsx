@@ -52,12 +52,15 @@ class MatchmakerPage extends Component {
     console.log('receiver data: ', receiverData.username)
     this.socket.emit('accepted invitation', JSON.stringify(senderData.username), JSON.stringify(receiverData.username) )
     this.setState({ showChat: true })
-    
     console.log('accepted invitation')
   }
 
   declineInivation = () => {
     console.log('decline invitation')
+  }
+
+  completeUserInvitation = (senderData, receiverData) => {
+    this.socket.emit('completed invitation process', senderData, receiverData)
   }
 
   newPost(post) {
@@ -152,8 +155,9 @@ class MatchmakerPage extends Component {
       })
       .on('receive accepted invitation', function(senderData, receiverData) {
         if(c.state.currentUserName === JSON.parse(senderData)) {
-          console.log('receive accepted invitation!: ', senderData, receiverData)    
-          c.setState({ showChat: true })      
+          console.log('receive accepted invitation!: ', senderData, receiverData)
+          c.completeUserInvitation(senderData, receiverData)
+          c.setState({ showChat: true });
         }
       })
       .on('disconnect', function(){

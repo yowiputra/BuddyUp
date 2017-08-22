@@ -83,6 +83,7 @@ module.exports = (io, knex) => {
           const senderData = data[0];
           console.log('sender data ', senderData);
           socket.broadcast.emit('respondToInvite', JSON.stringify(senderData), userData);
+
         })
       });
 
@@ -96,16 +97,26 @@ module.exports = (io, knex) => {
         broadcastUpdatedOnlineList();
       })
 
-      socket.on('send message', function(data) {
-        console.log(data);
-        io.sockets.emit('new message', data)
-      })
-      
       socket.on('accepted invitation', function(senderData, receiverData) {
         console.log('sender data:', senderData);
         console.log('receiver data: ', receiverData)
+        console.log('socket: ', socket.decoded_token)
+        socket.join('room1');
+        console.log(socket.decoded_token.username, 'joined room 1')
         io.sockets.emit('receive accepted invitation', senderData, receiverData)
       })
+
+      socket.on('completed invitation process', function(senderData, receiverData) {
+        socket.join('room1')
+        console.log(socket.decoded_token.username, 'joined room 1')
+      })
+
+      socket.on('send message', function(data) {
+        console.log(data);
+        io.sockets.emit('new message', data)
+
+      })
+
     })
 
     // const users = [];
