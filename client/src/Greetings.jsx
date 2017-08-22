@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import imageUrl from './logo.png';
+
 
 // BELOW = preloader div (insert into line 15 if desired)
 // <div id="preloader">
@@ -11,7 +11,8 @@ class Greetings extends Component {
   render () {
     return (
       <div id="page-top" data-spy="scroll" data-target=".navbar-custom">
-       
+        { (true ? <video src="/greetingsPageVid.mp4" autoPlay /> : undefined) }
+      
         <section id="intro" className="intro">
           <div className="slogan">
             <h2>WELCOME TO <span className="text_color">BUDDYUP</span> </h2>

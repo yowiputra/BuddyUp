@@ -44,7 +44,18 @@ module.exports = {
           loader: 'url-loader'
         }
       },
-      
+      {
+        test: /\.html$/,
+        use: {
+          loader: 'url-loader'
+        }
+      }, 
+      {
+        test: /\.mp4$/,
+        use: {
+          loader: 'file-loader'
+        }
+      },
       // https://webpack.js.org/loaders/sass-loader/
       {
         test: /\.scss$/,
