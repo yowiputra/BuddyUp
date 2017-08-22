@@ -52,12 +52,6 @@ module.exports = (io, knex) => {
     }
   }
 
-  function createNewRoom(){
-    knex('rooms').insert({name: 'room 3', timestamps: true}).then(function(data) {
-      console.log(data)
-    }) 
-  }
-
   io.sockets
     .on('connection', socketIoJwt.authorize({
       secret: process.env.JWT_SECRET,
@@ -104,24 +98,28 @@ module.exports = (io, knex) => {
       })
 
       socket.on('accepted invitation', function(senderData, receiverData) {
-        console.log('sender data:', senderData);
-        console.log('receiver data: ', receiverData)
+        const parsedsenderData = JSON.parse(senderData)
+        console.log('senders username:', parsedsenderData.username);
+        console.log('room name: ', parsedsenderData.roomName)
+        const room = parsedsenderData.roomName
         console.log('socket: ', socket.decoded_token)
-        //createNewRoom();
-        socket.join('room1');
-        console.log(socket.decoded_token.username, 'joined room 1')
+        socket.join(room);
+        console.log(socket.decoded_token.username, 'joined room: ', room)
         io.sockets.emit('receive accepted invitation', senderData, receiverData)
       })
 
       socket.on('completed invitation process', function(senderData, receiverData) {
-        socket.join('room1')
-        console.log(socket.decoded_token.username, 'joined room 1')
+        const parsedsenderData = JSON.parse(senderData)
+        const room = parsedsenderData.roomName
+        socket.join(room)
+        console.log('here is ?')
+        console.log(socket.decoded_token.username, 'joined room: ', room)
       })
 
-      socket.on('send message', function(data) {
-        console.log(data);
+      socket.on('send message', function(data, room) {
+        console.log(data.username, 'posted in room: ', room, 'with message: ', data.message);
       //io.sockets.emit('new message', data)
-        io.to('room1').emit('new message', data)
+        io.to(room).emit('new message', data)
 
       })
 

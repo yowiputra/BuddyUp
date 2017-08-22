@@ -5,11 +5,8 @@ import { connect } from 'react-redux';
 import Slider from './Slider.jsx';
 import jwt from 'jsonwebtoken';
 import PopupChat from './PopupChat.jsx';
-import {
-  PopupboxManager,
-  PopupboxContainer
-} from 'react-popupbox';
-
+import {PopupboxManager, PopupboxContainer} from 'react-popupbox';
+const uuidv4 = require('uuid/v4');
 
 class MatchmakerPage extends Component {
   constructor(props) {
@@ -21,6 +18,7 @@ class MatchmakerPage extends Component {
       ownUserName: this.props.auth.user.username,
       messages: [],
       showChat: false,
+      roomName: '',
     };
     //refactor binding like acceptInviation()
     this.updateCompat = this.updateCompat.bind(this);
@@ -50,8 +48,9 @@ class MatchmakerPage extends Component {
     const socket = this.props.socket
     console.log('sender data:', senderData.username)
     console.log('receiver data: ', receiverData.username)
-    this.socket.emit('accepted invitation', JSON.stringify(senderData.username), JSON.stringify(receiverData.username) )
-    this.setState({ showChat: true })
+    senderData.roomName = uuidv4()
+    this.socket.emit('accepted invitation', JSON.stringify(senderData), JSON.stringify(receiverData) )
+    this.setState({ showChat: true, roomName: senderData.roomName })
     console.log('accepted invitation')
   }
 
@@ -60,7 +59,10 @@ class MatchmakerPage extends Component {
   }
 
   completeUserInvitation = (senderData, receiverData) => {
+    const parsedSenderData = JSON.parse(senderData)
+    console.log('completed invitation process');
     this.socket.emit('completed invitation process', senderData, receiverData)
+    this.setState({ roomName: parsedSenderData.roomName })
   }
 
   newPost(post) {
@@ -75,7 +77,7 @@ class MatchmakerPage extends Component {
     // console.log(JSON.stringify(message))
     const chatbar = document.getElementById('chatbar');
     chatbar.value = '';
-    this.socket.emit('send message', JSON.stringify(message))
+    this.socket.emit('send message', JSON.stringify(message), this.state.roomName)
     console.log('message sent')
   }
 
@@ -154,7 +156,9 @@ class MatchmakerPage extends Component {
         c.updateMessages(message);
       })
       .on('receive accepted invitation', function(senderData, receiverData) {
-        if(c.state.currentUserName === JSON.parse(senderData)) {
+        const parsedSenderData = JSON.parse(senderData)
+        console.log('parsedSenderData: ', parsedSenderData.username)
+        if(c.state.currentUserName === parsedSenderData.username) {
           console.log('receive accepted invitation!: ', senderData, receiverData)
           c.completeUserInvitation(senderData, receiverData)
           c.setState({ showChat: true });
