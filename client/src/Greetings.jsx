@@ -24,7 +24,7 @@ class Greetings extends Component {
                 <div className="col-lg-8 col-lg-offset-2">
                   <div className="wow bounceInDown" data-wow-delay="0.4s">
                     <div className="section-heading">
-                      <h2>Created by</h2>
+                      <h3>Created by</h3>
                       <i className="fa fa-2x fa-angle-down"></i>
                     </div>
                   </div>
