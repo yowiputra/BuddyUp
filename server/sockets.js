@@ -52,6 +52,12 @@ module.exports = (io, knex) => {
     }
   }
 
+  function createNewRoom(){
+    knex('rooms').insert({name: 'room 3', timestamps: true}).then(function(data) {
+      console.log(data)
+    }) 
+  }
+
   io.sockets
     .on('connection', socketIoJwt.authorize({
       secret: process.env.JWT_SECRET,
@@ -101,6 +107,7 @@ module.exports = (io, knex) => {
         console.log('sender data:', senderData);
         console.log('receiver data: ', receiverData)
         console.log('socket: ', socket.decoded_token)
+        //createNewRoom();
         socket.join('room1');
         console.log(socket.decoded_token.username, 'joined room 1')
         io.sockets.emit('receive accepted invitation', senderData, receiverData)
@@ -113,7 +120,8 @@ module.exports = (io, knex) => {
 
       socket.on('send message', function(data) {
         console.log(data);
-        io.sockets.emit('new message', data)
+      //io.sockets.emit('new message', data)
+        io.to('room1').emit('new message', data)
 
       })
 
