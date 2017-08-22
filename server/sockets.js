@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const IO_PORT = process.env.IO_PORT
 const socketIoJwt = require('socketio-jwt');
-const _ = require('lodash');
 
 const pry = require('pryjs');
 
@@ -42,17 +41,12 @@ module.exports = (io, knex) => {
   }
 
   function broadcastUpdatedOnlineList(){
-    for (var userName in onlineUsers) {
+    for (const userName in onlineUsers) {
       const {user, socket} = onlineUsers[userName];
       getSeriousness(userName).then((data) => {
+        socket.emit('getDefaultSeriousness', JSON.stringify(data[0].seriousness));
         queryCompatUsers(userName, data[0].seriousness).then((users) => {
-          // console.log('Before filter ', users)
-          // //this filtration is working for getting out the user who is not online.
-          // const matchUsers = users.filter(value => value.username !== userName)
-          // console.log("After filter ", matchUsers)
-          // sockets.forEach(socket => {
-            io.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users));
-          // })
+            socket.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users), userName);
         })
       })
     }
@@ -64,26 +58,12 @@ module.exports = (io, knex) => {
       timeout: 1000
     })).on('authenticated', function(socket) {
       const currentUserName = socket.decoded_token.username;
-      console.log('hello! ' + currentUserName);    
-      
+      console.log('hello! ' + currentUserName);
       if (!onlineUsers[currentUserName]) {
-        exports.currentUserName = currentUserName;
-        socket.emit('authenticated', currentUserName);        
         onlineUsers[currentUserName] = {user: socket.decoded_token, socket: socket};
       }
-
       console.log('after auth ', onlineUsers);
-
       broadcastUpdatedOnlineList();
-      
-      // Initial Load
-      queryUser(currentUserName).then(user => {
-        socket.emit('getDefaultSeriousness', JSON.stringify(user[0].seriousness));
-        queryCompatUsers(user[0].username, user[0].seriousness).then(users => {
-          // const filteredUsers = users.filter(user => user.username != currentUserName);
-          socket.emit('onlinematchedSeriousnessUserIds', JSON.stringify(users));
-        });
-      });
 
       // Update seriousness after slider change
       socket.on('updateSeriousness', function(data) {
@@ -94,17 +74,48 @@ module.exports = (io, knex) => {
       });
 
       // Initial invite
-      socket.on('inviteUserB', function(userData) {
-        console.log("invite received");
-        socket.broadcast.to(userData.username).emit('message', 'Someone sent you an invite.')
+      socket.on('sendInvite', function(currentUserName, userData) {
+        const parsedUserData = JSON.parse(userData);
+        console.log("invite sent by ", currentUserName, " to ", parsedUserData.username);
+        queryUser(currentUserName).then((data) => {
+          const senderData = data[0];
+          console.log('sender data ', senderData);
+          socket.broadcast.emit('respondToInvite', JSON.stringify(senderData), userData);
+        })
       });
 
-      socket.on('disconnect', function(){ 
-        delete onlineUsers[currentUserName];
+      socket.on('disconnect', function(){
+        for (const userName in onlineUsers){
+          if(onlineUsers[userName].socket.disconnected){
+            delete onlineUsers[userName];
+          }
+        }
         console.log('after delete on disconnect ', onlineUsers);
         broadcastUpdatedOnlineList();
       })
+
+      socket.on('send message', function(data) {
+        console.log(data);
+        io.sockets.emit('new message', data)
+      })
     })
+
+    // const users = [];
+    // const connections = [];
+    // io.sockets.on('connection', function(socket){
+    //   connections.push(socket);
+    //   console.log('Connected: %s sockets connected:', connections.length)
+
+    //   //Disconnect
+    //   socket.on('disconnect', function(data){
+    //     connections.splice(connections.indexOf(socket), 1);
+    //     console.log('Disconnected: %s sockets connected:', connections.length)  
+    //   });
+
+    //   socket.on('message', function(data) {
+    //     console.log(data)
+    //   })
+    // });
 
   io.listen(IO_PORT, () => {
     console.log("Socket.io listening on port " + IO_PORT);
