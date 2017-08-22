@@ -96,6 +96,7 @@ module.exports = (io, knex) => {
       // Initial invite
       socket.on('inviteUserB', function(userData) {
         console.log("invite received");
+        socket.broadcast.to(userData.username).emit('message', 'Someone sent you an invite.')
       });
 
       socket.on('disconnect', function(){ 
