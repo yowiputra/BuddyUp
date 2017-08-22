@@ -1,47 +1,47 @@
-$brand-color: tomato;
+// $brand-color: tomato;
 
-body{
-  background: white;
-  margin: 0;
-}
-h1, h2 {
-  color: $brand-color;
-  display: flex;
-  justify-content: center;
-}
-nav {
-  background: peachpuff;
-  display: flex;
-  justify-content: space-between; 
-  padding: 10px;
-}
-  .title {
-    margin: 0;
-  }
-  .dropdown {
-    margin: 0;
-  }
+// body{
+//   background: black;
+//   margin: 0;
+// }
+// h1, h2 {
+//   color: $brand-color;
+//   display: flex;
+//   justify-content: center;
+// }
+// nav {
+//   background: peachpuff;
+//   display: flex;
+//   justify-content: space-between; 
+//   padding: 10px;
+// }
+//   .title {
+//     margin: 0;
+//   }
+//   .dropdown {
+//     margin: 0;
+//   }
 
-  .navbar, .navbar-default{
-    display: block;
-  }
+//   .navbar, .navbar-default{
+//     display: block;
+//   }
 
-  .caret {
-    display: none;
-  }
+//   .caret {
+//     display: none;
+//   }
   
-.master-root {
-  margin: 20px auto;
-  height: 50px;
-  position: relative;
-  min-height: 400px;
-  max-height: 100px;
-  width: 300px;
-  overflow: hidden;
-  border: 1px solid grey;
-  padding: 0px 0px 10px 0px;
+// .master-root {
+//   margin: 20px auto;
+//   height: 50px;
+//   position: relative;
+//   min-height: 400px;
+//   max-height: 100px;
+//   width: 300px;
+//   overflow: hidden;
+//   border: 1px solid grey;
+//   padding: 0px 0px 10px 0px;
   
-}
+// }
 
   .card {
   background: peachpuff;

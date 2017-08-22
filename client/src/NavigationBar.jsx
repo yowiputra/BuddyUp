@@ -46,18 +46,21 @@ class NavigationBar extends Component {
     );
       
     return (
-      <nav className="navbar navbar-default">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <Link to="/matchmaker" className="navbar-brand">Buddy Up</Link>
-          </div>
-          <div className="collapse navbar-collapse">
-            <ul className="nav navbar-nav navbar-right">
-              { isAuthenticated ? userLinks : guestLinks }  
-            </ul>
-          </div>
+      <nav className="navbar navbar-custom navbar-fixed-top" role="navigation">
+      <div className="container">
+        <div className="navbar-header page-scroll">
+          <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+            <i className="fa fa-bars"></i>
+          </button>
+          <Link to="/matchmaker" className="navbar-brand">BuddyUp</Link>
         </div>
-      </nav>
+        <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
+          <ul className="nav navbar-nav navbar-right">
+            { isAuthenticated ? userLinks : guestLinks }  
+          </ul>
+        </div>
+      </div>
+    </nav>
     );
   }
 }

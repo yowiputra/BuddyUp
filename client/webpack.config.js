@@ -32,6 +32,19 @@ module.exports = {
           loader: 'babel-loader'
         }
       },
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: {
+          loader: 'url-loader'
+        }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: {
+          loader: 'url-loader'
+        }
+      },
+      
       // https://webpack.js.org/loaders/sass-loader/
       {
         test: /\.scss$/,

@@ -1,6 +1,10 @@
 require('../styles/main.scss');
+require('../styles/style.scss')
+require('../styles/animate.scss')
+require('../styles/bootstrap.scss')
 require('../styles/rc-slider-index.scss');
 require('../styles/rc-slider-bootstrap.scss');
+
 
 import React from 'react';
 import { render } from 'react-dom';
