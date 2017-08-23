@@ -11,8 +11,8 @@ module.exports = (io, knex) => {
   const onlineUsers = {};
 
   function queryCompatUsers(username, seriousness){
-    return knex('users').where('seriousness','>',seriousness-10)
-      .andWhere('seriousness','<',seriousness+10)
+    return knex('users').where('seriousness','>',seriousness-600)
+      .andWhere('seriousness','<',seriousness+600)
       .whereIn('username', Object.keys(onlineUsers))
       .then(function(results) {
         function sortFunction(record1,record2) {
