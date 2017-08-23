@@ -15,7 +15,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'public'),
     host: '0.0.0.0',
     port: process.env.WEBPACK_DEV_PORT,
-    inline: true,    
+    inline: true, 
     hot: true    
   },
   watchOptions: {

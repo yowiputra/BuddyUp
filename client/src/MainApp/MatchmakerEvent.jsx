@@ -7,7 +7,6 @@ class MatchmakerEvent extends Component {
     console.log(data)
     return (
       <div>
-        <PopupChat />
         <Cards onEnd={() => console.log('end')} className='master-root'>
           {data.map(item =>
              <Card
