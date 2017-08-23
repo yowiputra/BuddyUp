@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 // BELOW = preloader div (insert into line 15 if desired)
 // <div id="preloader">
 // <div id="load"></div>
@@ -9,11 +8,14 @@ import React, { Component } from 'react';
 class Greetings extends Component {
   render () {
     return (
-      <div id="page-top" data-spy="scroll" data-target=".navbar-custom">
-        { (true ? <video src="/greetingsPageVid.mp4" autoPlay /> : undefined) }
-      
+      <div id="page-top" className="page-top" data-spy="scroll" data-target=".navbar-custom">
+        
         <section id="intro" className="intro">
-          <img src={backgroundUrl}/>
+          <video autoPlay loop muted src="/greetingsPageVid.mp4"/>
+        </section>
+
+        <section id="logo">
+          <img src="/logo.png"/>
         </section>
 
         <section id="about" className="home-section text-center">
@@ -43,8 +45,8 @@ class Greetings extends Component {
                   <div className="team boxed-grey">
                     <div className="inner">
                       <h5>Yohan Wiputra</h5>
-                      <p className="subtitle">Not Late</p>
-                      <div className="avatar"><img src="img/team/1.jpg" alt="" className="img-responsive img-circle" /></div>
+               
+                      <div className="avatar"><img src="https://steamuserimages-a.akamaihd.net/ugc/544144200753106252/C5719C7DFD1044AFD01D948FCE0946A3E341FA7B/" alt="" className="img-responsive img-circle" /></div>
                     </div>
                   </div>
                 </div>
@@ -54,8 +56,8 @@ class Greetings extends Component {
                   <div className="team boxed-grey">
                     <div className="inner">
                       <h5>Helen Lee</h5>
-                        <p className="subtitle">Late</p>
-                        <div className="avatar"><img src="img/team/2.jpg" alt="" className="img-responsive img-circle" /></div>
+                  
+                        <div className="avatar"><img src="http://i.imgur.com/utol4F4.jpg" alt="" className="img-responsive img-circle" /></div>
                     </div>
                   </div>
                 </div>
@@ -65,8 +67,8 @@ class Greetings extends Component {
                   <div className="team boxed-grey">
                     <div className="inner">
                       <h5>Victor Cortez</h5>
-                      <p className="subtitle">Late</p>
-                      <div className="avatar"><img src="img/team/3.jpg" alt="" className="img-responsive img-circle" /></div>
+                 
+                      <div className="avatar"><img src="https://dota2.gamepedia.com/media/dota2.gamepedia.com/thumb/3/31/Cosmetic_icon_Cluckles_the_Brave.png/256px-Cosmetic_icon_Cluckles_the_Brave.png?version=ccb8c03b51aa4e14b8307c18e053a89c" alt="" className="img-responsive img-circle" /></div>
                     </div>
                   </div>
                 </div>
@@ -76,8 +78,8 @@ class Greetings extends Component {
                   <div className="team boxed-grey">
                     <div className="inner">
                       <h5>John Wong</h5>
-                      <p className="subtitle">Late</p>
-                      <div className="avatar"><img src="img/team/4.jpg" alt="" className="img-responsive img-circle" /></div>
+                   
+                      <div className="avatar"><img src="https://s3-eu-west-1.amazonaws.com/media.valvetimes.com/uploads/2016/01/batpas12.jpg" alt="" className="img-responsive img-circle" /></div>
                     </div>
                   </div>
                 </div>

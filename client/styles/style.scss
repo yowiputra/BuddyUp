@@ -2,12 +2,14 @@
 
 
 body {
-    width: 100%;
-    height: 100%;
-    font-family: 'Lato',sans-serif;
-	font-weight: 300;
-    color: #666;
-    background-color: #000;
+  background-color: #000;
+  color: #666;
+  font-family: 'Lato',sans-serif;
+  font-weight: 300;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 html {
@@ -299,10 +301,10 @@ hr {
 ============================ */
 
 .intro {
+  padding: 0;
+  position:relative;
+  margin: 0;
 	width:100%;
-	position:relative;
-
-	// background: url(../img/bg1.jpg) no-repeat top center;
 }
 
 #intro {
@@ -316,12 +318,11 @@ hr {
   position: relative;
 }
 
-#intro img {
-  position: absolute;
-  width: 130%;
-  height: 100vh;
-  top: 0;
+#intro video {
   left: -15%;
+  position: fixed;
+  top: 0;
+  width: 130%;
 }
 
 .intro .slogan {
@@ -380,7 +381,7 @@ hr {
 }
 
 .avatar {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .team-social {
@@ -440,6 +441,15 @@ hr {
 	margin-bottom: 20px;
 }
 
+#logo {
+  display: block;
+  left: 14.5%;
+  margin: auto;
+  position: relative;
+  top: 200px;
+  width: 40%;
+  z-index: 30000;
+}
 
 
 /* ===========================

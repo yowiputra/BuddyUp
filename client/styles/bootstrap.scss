@@ -277,7 +277,7 @@ body {
   font-size: 14px;
   line-height: 1.428571429;
   color: #333;
-  background-color: #c7e2e2;
+  background-color: #000;
 }
 input,
 button,
@@ -309,8 +309,8 @@ img {
 }
 .img-responsive {
   display: block;
-  max-width: 100%;
-  height: auto;
+  height: 200px;
+  width: 200px;
 }
 .img-rounded {
   border-radius: 6px;
