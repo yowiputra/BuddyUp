@@ -160,6 +160,13 @@ a:focus {
     outline: 0;
 }
 
+.navbar-header.page-scroll img {
+  float: left;
+  height: 60px;
+  margin-right: 10px;
+  width: auto;
+}
+
 
 /* loader */
 #preloader {
@@ -183,6 +190,18 @@ a:focus {
     position: absolute;
     top: 50%;
     width: 60px;
+}
+
+  .formstyle {
+    background-color: 0,0,0,0.4;
+    border: 2px;
+    border-color: white;
+    border-radius: 0.5px;
+    box-sizing: border-box;
+    height: 400px;
+    margin-top: 180px;
+    padding: 30px;
+    width: 400px;
 }
 
 @keyframes boxSpin{
@@ -297,6 +316,93 @@ hr {
 
 
 /* ===========================
+--- Login
+============================ */
+
+.login {
+  padding: 0;
+  position:relative;
+  margin: 0;
+	width:100%;
+}
+
+#login.login {
+	padding:300px 0 300px 0;
+}
+
+#login * {
+  position: relative;
+}
+
+#login video {
+  left: -15%;
+  position: fixed;
+  top: -20%;
+}
+
+#login .formdiv {
+  margin-left: 800px;
+  margin-top: 60px;
+  position: absolute;
+  top: 0;
+} 
+
+#login form {
+  background: rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 2px;
+  color: white;
+  height: 400px;
+  margin-top: 110px;
+  padding: 30px;
+  width: 400px;
+}
+
+/* ===========================
+--- Signup
+============================ */
+
+.signup {
+  padding: 0;
+  position:relative;
+  margin: 0;
+	width:100%;
+}
+
+#signup.signup {
+	padding:300px 0 300px 0;
+}
+
+#signup * {
+  position: relative;
+}
+
+#signup video {
+  left: -15%;
+  position: fixed;
+  top: -20%;
+}
+
+#signup .formdiv {
+  height: 500px;
+  margin-right: 800px;
+  position: absolute;
+  top: 0;
+}
+
+#signup form {
+  background: rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 2px;
+  color: white;
+  height: 500px;
+  margin-top: 110px;
+  padding: 30px;
+  width: 400px;
+}
+
+
+/* ===========================
 --- Intro
 ============================ */
 
@@ -305,9 +411,6 @@ hr {
   position:relative;
   margin: 0;
 	width:100%;
-}
-
-#intro {
 }
 
 #intro.intro {
@@ -452,86 +555,7 @@ hr {
 }
 
 
-/* ===========================
---- Contact
-============================ */
 
-form#contact-form .form-group label {
-	text-align: left !important;
-	display: block;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	font-size: 12px;
-}
-form#contact-form input,form#contact-form select,form#contact-form textarea {
-	border-radius: 0;
-	border: 1px solid #eee;
-  -webkit-box-shadow: none;
-          box-shadow:  none;
-}
-
-form#contact-form input:focus,form#contact-form select:focus,form#contact-form textarea:focus {
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
-          box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
-}
-.input-group-addon {
-  background-color: #fefefe;
-  border: 1px solid #eee;
-  border-radius: 0;
-}
-
-.widget-contact {
-	text-align: left;
-}
-
-
-.company-social {
-	margin-left: 0;
-	padding-left: 0;
-	margin-top: 10px;
-}
-
-.company-social {
-	text-align: left;
-}
-
-.company-social li{
-    display: inline-block;
-	margin:0 !important;
-	padding:0;
-}
-
-
-.company-social a{
-	margin:0;
-	padding:0;
-    display: block;
-	width: 40px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    background: #3bbec0;
-	color: #fff;
-    -webkit-transition: background .3s ease-in-out;
-    transition: background .3s ease-in-out;
-}
-.company-social a i{
-	text-align: center;
-	margin:0;
-	padding:0;
-}
-.company-social .social-facebook a{background: #3873ae;}
-.company-social .social-twitter a{background: #62c6f8;}
-.company-social .social-dribble a{background: #d74980;}
-.company-social .social-deviantart a{background: #8da356;}
-.company-social .social-google a{background: #000;}
-.company-social .social-vimeo a{background: #51a6d3;}
-.company-social .social-facebook a:hover{background: #4893ce;}
-.company-social .social-twitter a:hover{background: #82e6ff;}
-.company-social .social-dribble a:hover{background: #f769a0;}
-.company-social .social-deviantart a:hover{background: #adc376;}
-.company-social .social-google a:hover{background: #333;}
-.company-social .social-vimeo a:hover{background: #71c6f3;}
 
 
 
