@@ -18,17 +18,14 @@ class MatchmakerPage extends Component {
       ownUserName: this.props.auth.user.username,
       messages: [],
       showChat: false,
-      roomName: '',
+      roomName: ''
     };
     //refactor binding like acceptInviation()
     this.updateCompat = this.updateCompat.bind(this);
     this.updateDefaultValue = this.updateDefaultValue.bind(this);
     this.updateCurrentUserName = this.updateCurrentUserName.bind(this);
-    this.newPost = this.newPost.bind(this)
+    this.newPost = this.newPost.bind(this);
   }
-
-
-
 
   openPopupbox (senderData, receiverData) {
     //receiverData currently has password information
@@ -47,8 +44,9 @@ class MatchmakerPage extends Component {
   }
 
   closePopupBox () {
-    PopupboxManager.close()    
+    PopupboxManager.close()
   }
+
   acceptInvitation = (senderData, receiverData) => {
     const socket = this.props.socket
     console.log('sender data:', senderData.username)
@@ -164,14 +162,14 @@ class MatchmakerPage extends Component {
           c.setState({ showChat: true });
         }
       })
-      .on('disconnect', function(){
-        this.socket.emit('disconnect');
-      })
     });
   }
 
   componentWillUnmount(){
-    this.socket.emit('disconnect');
+    if(this.socket){
+      this.socket.close();
+      console.log('socket disconnected');
+    }
   }
 
   updateUserSeriousness = (value) => {
@@ -193,9 +191,9 @@ class MatchmakerPage extends Component {
           <div>
             <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
           </div>
-          {this.state.showChat && 
-          <div>     
-            <PopupChat newPost={this.newPost} ownUownUserName={this.state.ownUserName} messages={this.state.messages} /> 
+          {this.state.showChat &&
+          <div>
+            <PopupChat newPost={this.newPost} ownUownUserName={this.state.ownUserName} messages={this.state.messages} />
           </div>}
         </div>
         <PopupboxContainer />

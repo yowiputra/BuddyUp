@@ -9,8 +9,6 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
-
-
 class NavigationBar extends Component {
 
   logout(e) {
