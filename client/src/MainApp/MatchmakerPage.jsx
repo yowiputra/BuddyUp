@@ -34,8 +34,13 @@ class MatchmakerPage extends Component {
     //receiverData currently has password information
     const content = (
       <div>
-        <button onClick={(event) => {this.acceptInvitation(senderData, receiverData); this.closePopupBox()}}>Accept</button>
-        <button onClick>{this.declineInivation}>Decline</button>
+        <div>
+          {senderData.username + senderData.blurb + senderData.tagline }
+        </div>
+          <div>
+            <button onClick={(event) => {this.acceptInvitation(senderData, receiverData); this.closePopupBox()}}>Accept</button>
+            <button onClick={this.closePopupBox()}>Decline</button>
+          </div>
       </div>
     )
     PopupboxManager.open({ content })
@@ -52,10 +57,6 @@ class MatchmakerPage extends Component {
     this.socket.emit('accepted invitation', JSON.stringify(senderData), JSON.stringify(receiverData) )
     this.setState({ showChat: true, roomName: senderData.roomName })
     console.log('accepted invitation')
-  }
-
-  declineInivation = () => {
-    console.log('decline invitation')
   }
 
   completeUserInvitation = (senderData, receiverData) => {
@@ -145,7 +146,6 @@ class MatchmakerPage extends Component {
           const senderData = senderDataArr[0];
           console.log('Respond to ', senderData.username, ' ?');
           c.openPopupbox(parsedSenderData, parsedReceiverData)
-
         }
       })
       .on('new message', function(data){
