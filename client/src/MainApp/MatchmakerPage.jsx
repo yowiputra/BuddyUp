@@ -116,6 +116,10 @@ class MatchmakerPage extends Component {
     });
   }
 
+  componentWillUnmount(){
+    this.socket.emit('disconnect');
+  }
+
   updateUserSeriousness = (value) => {
     this.updateDefaultValue(value);
     this.socket.emit('updateSeriousness', JSON.stringify({ value }));
@@ -133,10 +137,10 @@ class MatchmakerPage extends Component {
         </div>
         <div className="matchmakerEventAndChat-container">
           <div>
-            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>  
+            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
           </div>
-          <div>     
-            <PopupChat newPost={this.newPost} ownUownUserName={this.state.ownUserName} messages={this.state.messages} /> 
+          <div>
+            <PopupChat newPost={this.newPost} ownUownUserName={this.state.ownUserName} messages={this.state.messages} />
           </div>
         </div>
       </div>
