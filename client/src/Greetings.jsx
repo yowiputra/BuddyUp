@@ -11,7 +11,7 @@ class Greetings extends Component {
       <div id="page-top" className="page-top" data-spy="scroll" data-target=".navbar-custom">
         
         <section id="intro" className="intro">
-          <video autoPlay loop muted src="/greetingsPageVid.mp4"/>
+          <video autoPlay loop muted src="/greetingsVid.mp4"/>
         </section>
 
         <section id="logo">
