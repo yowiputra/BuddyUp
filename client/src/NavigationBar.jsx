@@ -48,11 +48,11 @@ class NavigationBar extends Component {
     return (
       <nav className="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div className="container">
-          <div className="navbar-header page-scroll">
+          <div className="navbar-header page-scroll"> 
             <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
               <i className="fa fa-bars"></i>
             </button>
-            <Link to="/matchmaker" className="navbar-brand">BuddyUp</Link>
+            <Link to="/matchmaker" className="navbar-brand"><img src="/logo.png"/>BuddyUp</Link>
           </div>
           <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul className="nav navbar-nav navbar-right">
