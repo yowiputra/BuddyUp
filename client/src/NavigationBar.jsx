@@ -29,7 +29,7 @@ class NavigationBar extends Component {
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem containerElement={<Link to="/profile" />} primaryText="Profile" />
+        <MenuItem href="/profile" primaryText="Profile" />
         <MenuItem href="#" onClick={this.logout.bind(this)}>Logout</MenuItem>
       </IconMenu>
     );
