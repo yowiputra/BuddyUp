@@ -42,46 +42,53 @@ class SignupForm extends Component {
   render () {
     const { errors } = this.state;
     return (
-      <form onSubmit={this.onSubmit}>
-        <h1>Join BuddyUp!</h1>
-
-          <TextFieldGroup
-            error={errors.username}
-            label="Username"
-            onChange={this.onChange}
-            value={this.state.username}
-            field="username"
-          />
-          <TextFieldGroup
-            error={errors.email}
-            label="Email"
-            onChange={this.onChange}
-            value={this.state.email}
-            field="email"
-          />          
-          <TextFieldGroup
-            error={errors.password}
-            label="Password"
-            onChange={this.onChange}
-            value={this.state.password}
-            field="password"
-            type="password"
-          />
-          <TextFieldGroup
-            error={errors.passwordConfirmation}
-            label="Password Confirmation"
-            onChange={this.onChange}
-            value={this.state.passwordConfirmation}
-            field="passwordConfirmation"
-            type="password"
-          />
-
-          <div className="form-group">
-            <button disabled={this.state.isLoading} className="btn btn-primary btn-lg">
-              Sign Up
-            </button>
+      <div id="page-top" className="page-top" data-spy="scroll" data-target=".navbar-custom">
+        <section id="signup" className="signup">
+          <div>
+            <video autoPlay loop muted src="/signupVid.mp4"/>
           </div>
-      </form>
+          <div className="formdiv">
+            <form onSubmit={this.onSubmit}>
+              <h1>Register</h1>
+
+              <TextFieldGroup
+                error={errors.username}
+                label="Username"
+                onChange={this.onChange}
+                value={this.state.username}
+                field="username"
+              />
+              <TextFieldGroup
+                error={errors.email}
+                label="Email"
+                onChange={this.onChange}
+                value={this.state.email}
+                field="email"
+              />          
+              <TextFieldGroup
+                error={errors.password}
+                label="Password"
+                onChange={this.onChange}
+                value={this.state.password}
+                field="password"
+                type="password"
+              />
+              <TextFieldGroup
+                error={errors.passwordConfirmation}
+                label="Password Confirmation"
+                onChange={this.onChange}
+                value={this.state.passwordConfirmation}
+                field="passwordConfirmation"
+                type="password"
+              />
+
+              <div className="form-group">
+                <button disabled={this.state.isLoading} className="btn btn-primary btn-lg">Sign Up</button>
+              </div>
+          </form>
+        </div>
+      </section>
+    </div>
     )
   }
 }

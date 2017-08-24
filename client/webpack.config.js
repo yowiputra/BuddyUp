@@ -15,7 +15,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'public'),
     host: '0.0.0.0',
     port: process.env.WEBPACK_DEV_PORT,
-    inline: true,    
+    inline: true, 
     hot: true    
   },
   watchOptions: {
@@ -30,6 +30,30 @@ module.exports = {
         test: /\.jsx?$/,
         use: {
           loader: 'babel-loader'
+        }
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: {
+          loader: 'url-loader'
+        }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: {
+          loader: 'url-loader'
+        }
+      },
+      {
+        test: /\.html$/,
+        use: {
+          loader: 'url-loader'
+        }
+      }, 
+      {
+        test: /\.mp4$/,
+        use: {
+          loader: 'file-loader'
         }
       },
       // https://webpack.js.org/loaders/sass-loader/

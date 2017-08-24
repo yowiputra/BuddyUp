@@ -1,38 +1,38 @@
-$brand-color: tomato;
+// $brand-color: tomato;
 
-body{
-  background: white;
-  margin: 0;
-}
-h1, h2 {
-  color: $brand-color;
-  display: flex;
-  justify-content: center;
-}
-//navbar and dropdown styles
-nav {
-  background: peachpuff;
-  display: flex;
-  justify-content: space-between; 
-  padding: 10px;
-}
-  .title {
-    margin: 0;
-  }
+// body{
+//   background: white;
+//   margin: 0;
+// }
+// h1, h2 {
+//   color: $brand-color;
+//   display: flex;
+//   justify-content: center;
+// }
+// //navbar and dropdown styles
+// nav {
+//   background: peachpuff;
+//   display: flex;
+//   justify-content: space-between;
+//   padding: 10px;
+// }
+//   .title {
+//     margin: 0;
+//   }
 
 
-  .dropdown {
-    margin: 0;
-  }
+//   .dropdown {
+//     margin: 0;
+//   }
 
-  .navbar, .navbar-default{
-    display: block;
-  }
+//   .navbar, .navbar-default{
+//     display: block;
+//   }
 
   .caret {
     display: none;
   }
-// card swipe styles  
+// card swipe styles
 .master-root {
   // margin: 20px auto;
   height: 50px;
@@ -60,7 +60,7 @@ nav {
 }
 
 .card:hover {
-  background: khaki; 
+  background: khaki;
 }
 
 .card-text-description {
@@ -272,18 +272,18 @@ nav {
 
 //button within popupbox
 .demo-button {
-  bottom: 55px;  
+  bottom: 55px;
   display: block;
   margin-top: 8px;
   position: fixed;
-  
+
 }
 
 //chat window styles
 .chat-message {
   bottom: 86px;
   display: block;
-  margin-top: 8px;  
+  margin-top: 8px;
   position: fixed;
   width:250px;
 }
@@ -306,12 +306,12 @@ nav {
 }
 
 #chatbar {
-  border: black solid 1px;  
+  border: black solid 1px;
   width: 300px;
 }
 
 .messagelist {
-  border: black solid 1px;  
+  border: black solid 1px;
   height: 300px;
   width: 300px;
   overflow: auto;

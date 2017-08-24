@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import Slider from './Slider.jsx';
 import jwt from 'jsonwebtoken';
 import PopupChat from './PopupChat.jsx';
+import {PopupboxManager, PopupboxContainer} from 'react-popupbox';
+const uuidv4 = require('uuid/v4');
 
 class MatchmakerPage extends Component {
   constructor(props) {
@@ -15,11 +17,53 @@ class MatchmakerPage extends Component {
       currentUserName: '',
       ownUserName: this.props.auth.user.username,
       messages: [],
+      showChat: false,
+      roomName: '',
     };
+    //refactor binding like acceptInviation()
     this.updateCompat = this.updateCompat.bind(this);
     this.updateDefaultValue = this.updateDefaultValue.bind(this);
     this.updateCurrentUserName = this.updateCurrentUserName.bind(this);
     this.newPost = this.newPost.bind(this)
+  }
+
+
+
+
+  openPopupbox (senderData, receiverData) {
+    //receiverData currently has password information
+    const content = (
+      <div>
+        <div>
+          {senderData.username + senderData.blurb + senderData.tagline }
+        </div>
+          <div>
+            <button onClick={(event) => {this.acceptInvitation(senderData, receiverData); this.closePopupBox()}}>Accept</button>
+            <button onClick={this.closePopupBox()}>Decline</button>
+          </div>
+      </div>
+    )
+    PopupboxManager.open({ content })
+  }
+
+  closePopupBox () {
+    PopupboxManager.close()    
+  }
+  acceptInvitation = (senderData, receiverData) => {
+    const socket = this.props.socket
+    console.log('sender data:', senderData.username)
+    console.log('receiver data: ', receiverData.username)
+    senderData.roomName = uuidv4()
+    this.socket.emit('accepted invitation', JSON.stringify(senderData), JSON.stringify(receiverData) )
+    this.setState({ showChat: true, roomName: senderData.roomName })
+    console.log('accepted invitation')
+  }
+
+  completeUserInvitation = (senderData, receiverData) => {
+    const parsedSenderData = JSON.parse(senderData)
+    console.log('completed invitation process');
+    this.socket.emit('completed invitation process', senderData, receiverData)
+    this.setState({ roomName: parsedSenderData.roomName })
   }
 
   newPost(post) {
@@ -34,7 +78,7 @@ class MatchmakerPage extends Component {
     // console.log(JSON.stringify(message))
     const chatbar = document.getElementById('chatbar');
     chatbar.value = '';
-    this.socket.emit('send message', JSON.stringify(message))
+    this.socket.emit('send message', JSON.stringify(message), this.state.roomName)
     console.log('message sent')
   }
 
@@ -101,6 +145,7 @@ class MatchmakerPage extends Component {
           const senderDataArr = c.state.compatUsers.filter(user => user.username === parsedSenderData.username)
           const senderData = senderDataArr[0];
           console.log('Respond to ', senderData.username, ' ?');
+          c.openPopupbox(parsedSenderData, parsedReceiverData)
         }
       })
       .on('new message', function(data){
@@ -110,10 +155,23 @@ class MatchmakerPage extends Component {
         console.log(message)
         c.updateMessages(message);
       })
+      .on('receive accepted invitation', function(senderData, receiverData) {
+        const parsedSenderData = JSON.parse(senderData)
+        console.log('parsedSenderData: ', parsedSenderData.username)
+        if(c.state.currentUserName === parsedSenderData.username) {
+          console.log('receive accepted invitation!: ', senderData, receiverData)
+          c.completeUserInvitation(senderData, receiverData)
+          c.setState({ showChat: true });
+        }
+      })
       .on('disconnect', function(){
         this.socket.emit('disconnect');
       })
     });
+  }
+
+  componentWillUnmount(){
+    this.socket.emit('disconnect');
   }
 
   updateUserSeriousness = (value) => {
@@ -133,12 +191,15 @@ class MatchmakerPage extends Component {
         </div>
         <div className="matchmakerEventAndChat-container">
           <div>
-            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>  
+            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
           </div>
+          {this.state.showChat && 
           <div>     
             <PopupChat newPost={this.newPost} ownUownUserName={this.state.ownUserName} messages={this.state.messages} /> 
-          </div>
+          </div>}
         </div>
+        <PopupboxContainer />
+
       </div>
     );
   }
