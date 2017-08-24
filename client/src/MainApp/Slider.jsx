@@ -26,39 +26,34 @@ class Slider extends Component {
     console.log(value); //eslint-disable-line
   }
 
-  render() {
-
-    const handle = (props) => {
-      const { value, dragging, index, ...restProps } = props;
-      return (
-        <Tooltip
-          prefixCls="rc-slider-tooltip"
-          overlay={value}
-          visible={dragging}
-          placement="top"
-          key={index}
-        >
-          <Handle value={value} {...restProps} />
-        </Tooltip>
-      );
-    };
-
-    const wrapperStyle = { width: 400, margin: 50 };
-    return (
-      <div>
-
-        <div style={wrapperStyle}>
-          <p>Please slide according to your seriousness</p>
-          <p>{this.props.sliderDefaultValue}</p>
-          <RCSlider min={0} max={8000} value={this.props.sliderDefaultValue} handle={handle}
-            onChange={this.onSliderChange}
-          />
-
-        </div>
-      </div>
-
-    );
-  }
+  render () {
+        const handle = (props) => {
+          const { value, dragging, index, ...restProps } = props;
+          return (
+            <Tooltip
+              prefixCls="rc-slider-tooltip"
+              overlay={value}
+              visible={dragging}
+              placement="top"
+              key={index}
+            >
+              <Handle value={value} {...restProps} />
+            </Tooltip>
+          );
+        };
+    
+        return (
+          <div>
+            <div className="sliderSpace">
+              <p className="slideText">Please slide according to your seriousness:</p> 
+                <p className="slideNumber">{this.props.sliderDefaultValue}</p>
+              <RCSlider min={0} max={8000} value={this.props.sliderDefaultValue} handle={handle} 
+              onChange={this.onSliderChange}
+              />
+            </div>
+          </div>
+        );
+      }
 }
 
 export default Slider;

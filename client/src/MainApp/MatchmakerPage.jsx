@@ -100,10 +100,10 @@ class MatchmakerPage extends Component {
       currentUserName: username
     })
   }
-
+  
   componentDidMount() {
     this.socket = io.connect('http://localhost:3001');
-
+    
     var c = this;
     this.socket.on("connect", () => {
       console.log("Connected!");

@@ -9,8 +9,17 @@ class PopupChat extends Component {
     this.state = {
       currentUser: this.props.auth.user.username,
       input: '',
+      showHiddenChat: false
     }
     this.onChange = this.onChange.bind(this);
+  }
+
+  toggleHiddenChat = () => {
+    this.setState({ showHiddenChat: !this.state.showHiddenChat })
+  }
+
+  componentDidMount() {
+    console.log("PopupChat component mounted");
   }
 
   onChange(e) {
@@ -19,30 +28,29 @@ class PopupChat extends Component {
 
   render() {
     const messageList = this.props.messages.map((message) => {
-      return (<div key={message.id} className="message">
-        <span >{message.username}: {message.content}</span>
-      </div>);
-    })
-    return (
-      <div className="bordered">
-        <div className="messagelist">{messageList}</div>
 
-        <div>
+          return (<div key={message.id} className="message">
+            <span >{message.username}: {message.content}</span>
+          </div>);
+        })
+    const className = this.state.showHiddenChat ? "messagelist shown" : "messagelist bottom";
+    return (
+      <div className={className}>
+        <p className="chatheaderClicked" onClick={ this.toggleHiddenChat }>Chat</p>
+        <div className="message">{ messageList }</div>
           <input
             name="input"
             id="chatbar"
             placeholder="Type a message and hit ENTER"
-            onChange={this.onChange}
-            onKeyDown={(event) => {
+            onChange={ this.onChange }
+            onKeyDown={ (event) => {
               if (event.key === 'Enter') {
                 this.props.newPost(this.state.input);
-                const element = document.getElementsByClassName('messagelist');
+                const element = document.getElementsByClassName('message');
                 element.scrollIntoView(false);
               }
             }}
           />
-        </div>
-
       </div>
     )
   }
