@@ -19,15 +19,15 @@ class NavigationBar extends Component {
     this.context.router.history.push('/')
   }
 
-  render () {
+  render() {
 
     const { isAuthenticated } = this.props.auth;
 
     const userLinks = (
       <IconMenu
         iconButtonElement={<IconButton><MenuIcon /></IconButton>}
-        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
         <MenuItem href="/profile" primaryText="Profile" />
         <MenuItem href="#" onClick={this.logout.bind(this)}>Logout</MenuItem>
@@ -36,9 +36,9 @@ class NavigationBar extends Component {
 
     const guestLinks = (
       <IconMenu
-      iconButtonElement={<IconButton><MenuIcon /></IconButton>}
-      anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-      targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        iconButtonElement={<IconButton><MenuIcon /></IconButton>}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
         <MenuItem containerElement={<Link to="/login" />} primaryText="Login" />
         <MenuItem containerElement={<Link to="/signup" />} primaryText="Sign up" />
@@ -49,14 +49,14 @@ class NavigationBar extends Component {
       <nav className="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div className="container">
           <div className="navbar-header page-scroll">
-            <img src="/logo.png"/>
+            <img src="/logo.png" />
           </div>
           <div className="navbar-header page-scroll">
             <Link to="/matchmaker" className="navbar-brand">BuddyUp</Link>
           </div>
           <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul className="nav navbar-nav navbar-right">
-              { isAuthenticated ? userLinks : guestLinks }
+              {isAuthenticated ? userLinks : guestLinks}
             </ul>
           </div>
         </div>
