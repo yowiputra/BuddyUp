@@ -19,23 +19,21 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    console.log('mount jor lor');
     this.props.currentUserDataRequest().then(data => {
-      this.setState({ 
+      this.setState({
         username: data.username,
         email: data.email,
         tagline: data.tagline,
         blurb: data.blurb,
         imageurl: `https://api.adorable.io/avatars/285/${data.username}@adorable.io.png`,
-       })
+      })
     });
   }
 
   render() {
     const { username, email, tagline, blurb, imageurl } = this.state
-    console.log(imageurl);
     return (
-      
+
       <div className="jumbotron">
         <div className="text-center">
           <img className="img-circle bordered-image" src={this.state.imageurl} />
@@ -43,7 +41,7 @@ class Profile extends Component {
 
           <h2 className="text-muted">{tagline}</h2>
           <p>{blurb}</p>
-            <Link to="/profileupdate" className="btn btn-primary btn-lg">Edit Profile</Link>
+          <Link to="/profileupdate" className="btn btn-primary btn-lg">Edit Profile</Link>
         </div>
       </div>
 
