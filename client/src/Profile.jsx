@@ -19,21 +19,19 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    console.log('mount jor lor');
     this.props.currentUserDataRequest().then(data => {
-      this.setState({ 
+      this.setState({
         username: data.username,
         email: data.email,
         tagline: data.tagline,
         blurb: data.blurb,
         imageurl: `https://api.adorable.io/avatars/285/${data.username}@adorable.io.png`,
-       })
+      })
     });
   }
 
   render() {
     const { username, email, tagline, blurb, imageurl } = this.state
-    console.log(imageurl);
     return (
       <div id="page-top" className="page-top" data-spy="scroll" data-target=".navbar-custom">
         
@@ -54,9 +52,7 @@ class Profile extends Component {
               </div>
             </div>
           </section>
-        
       </div>
-
     );
   }
 }
