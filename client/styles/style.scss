@@ -316,6 +316,94 @@ hr {
 
 
 /* ===========================
+--- Profile
+============================ */
+#snow{
+	background: none;
+	font-family: Androgyne;
+	background-image: url('http://www.wearewebstars.dk/codepen/img/s1.png'), url('http://www.wearewebstars.dk/codepen/img//s2.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
+	height: 100%;
+	left: 0;
+	position: fixed !important;
+	top: 0;
+	width: 100%;
+	-webkit-animation: snow 10s linear infinite;
+	-moz-animation: snow 10s linear infinite;
+	-ms-animation: snow 10s linear infinite;
+	animation: snow 10s linear infinite;
+}
+@keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}
+@-moz-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 400px 1000px, 200px 400px, 100px 300px;}
+}
+@-webkit-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}
+@-ms-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}	
+
+.profile {
+  padding: 0;
+  position:relative;
+  margin: 0;
+	width:100%;
+}
+
+#profile.profile {
+	padding:300px 0 300px 0;
+}
+
+#profile * {
+  position: relative;
+}
+
+#profile .backgroundimg {
+  height: 100vh;
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  z-index: 0;
+}
+
+#profile .formdiv {
+  margin-right: 800px;
+  margin-top: 60px;
+  position: absolute;
+  top: 0;
+} 
+
+#profile .form {
+  background: rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 2px;
+  color: white;
+  height: 100%;
+  margin-top: 110px;
+  padding: 30px;
+  width: 100%;
+}
+
+#profile .formcontent {
+  margin-left: 60px;
+}
+
+.form .img-circle bordered-image {
+  height: 200px;
+  width: 200px;
+}
+
+/* ===========================
 --- Login
 ============================ */
 
@@ -352,10 +440,10 @@ hr {
   border: 2px solid rgba(255,255,255,0.5);
   border-radius: 2px;
   color: white;
-  height: 400px;
+  height: 100%;
   margin-top: 110px;
   padding: 30px;
-  width: 400px;
+  width: 100%;
 }
 
 /* ===========================
