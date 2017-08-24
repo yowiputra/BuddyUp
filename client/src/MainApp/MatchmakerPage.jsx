@@ -19,7 +19,7 @@ class MatchmakerPage extends Component {
     this.updateCompat = this.updateCompat.bind(this);
     this.updateDefaultValue = this.updateDefaultValue.bind(this);
     this.updateCurrentUserName = this.updateCurrentUserName.bind(this);
-    this.newPost = this.newPost.bind(this)
+    this.newPost = this.newPost.bind(this);
   }
 
   newPost(post) {
@@ -67,11 +67,11 @@ class MatchmakerPage extends Component {
       currentUserName: username
     })
   }
-
+  
   componentDidMount() {
     console.log("componentDidMount <App />");
     this.socket = io.connect('http://localhost:3001');
-
+    
     var c = this;
     this.socket.on("connect", () => {
       console.log("Connected!");
@@ -106,25 +106,25 @@ class MatchmakerPage extends Component {
       .on('new message', function(data){
         const messageData = JSON.parse(data)
         const message = {username: messageData.username,
-                          content: messageData.message,}
-        console.log(message)
-        c.updateMessages(message);
-      })
-      .on('disconnect', function(){
-        this.socket.emit('disconnect');
-      })
-    });
+          content: messageData.message,}
+          console.log(message)
+          c.updateMessages(message);
+        })
+        .on('disconnect', function(){
+          this.socket.emit('disconnect');
+        })
+      });
+    }
+    
+    updateUserSeriousness = (value) => {
+      this.updateDefaultValue(value);
+      this.socket.emit('updateSeriousness', JSON.stringify({ value }));
   }
-
-  updateUserSeriousness = (value) => {
-    this.updateDefaultValue(value);
-    this.socket.emit('updateSeriousness', JSON.stringify({ value }));
-  }
-
+  
   inviteUserB = (userData) => {
     this.socket.emit('sendInvite', this.state.currentUserName, JSON.stringify(userData));
   }
-
+  
   render () {
     return (
       <div className="matchmaker-container">
