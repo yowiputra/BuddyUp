@@ -1,39 +1,4 @@
-// $brand-color: tomato;
-
-// body{
-//   background: white;
-//   margin: 0;
-// }
-// h1, h2 {
-//   color: $brand-color;
-//   display: flex;
-//   justify-content: center;
-// }
-// //navbar and dropdown styles
-// nav {
-//   background: peachpuff;
-//   display: flex;
-//   justify-content: space-between;
-//   padding: 10px;
-// }
-//   .title {
-//     margin: 0;
-//   }
-
-
-//   .dropdown {
-//     margin: 0;
-//   }
-
-//   .navbar, .navbar-default{
-//     display: block;
-//   }
-  .nav, .navbar-nav, .navbar-right:hover {
-    color: lightgrey;
-    cursor: pointer;
-  }
-  
-  .caret {
+.caret {
     display: none;
   }
 // card swipe styles
@@ -55,20 +20,33 @@
 }
 
   .card {
-  background: peachpuff;
-  background-size: cover;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  cursor: pointer;
-  height: 300px;
-  text-align: center;
-  margin: 0 auto;
-  position: absolute;
-  transition: box-shadow .3s;
-  width: 180px;
+    background: rgba(0,0,0,0.5);
+    background-size: cover;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 2px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    color: white;
+    cursor: pointer;
+    height: 100%;
+    margin: 0 auto;
+    padding: 30px;
+    position: relative;
+    text-align: center;
+    transition: box-shadow .3s;
+    width: 100%;
 }
 
 .card:hover {
-  background: khaki;
+  background: rgba(168, 169, 176,0.7);
+}
+
+.card p {
+  font-size: 1.25em;
+}
+
+.card img {
+  height: 200px;
+  width: 200px;
 }
 
 .card-text-description {
