@@ -35,16 +35,26 @@ class Profile extends Component {
     const { username, email, tagline, blurb, imageurl } = this.state
     console.log(imageurl);
     return (
-      
-      <div className="jumbotron">
-        <div className="text-center">
-          <img className="img-circle bordered-image" src={this.state.imageurl} />
-          <h1>{username}</h1>
-
-          <h2 className="text-muted">{tagline}</h2>
-          <p>{blurb}</p>
-            <Link to="/profileupdate" className="btn btn-primary btn-lg">Edit Profile</Link>
-        </div>
+      <div id="page-top" className="page-top" data-spy="scroll" data-target=".navbar-custom">
+        
+          <section id="profile" className="profile">
+            <div>
+              <img className="backgroundimg" src="/profilepage.jpg"/>
+              <div id="snow"></div>
+            </div>
+            <div className="formdiv">
+              <div className="text-center" className="form">
+                  <div className="formcontent">
+                    <img className="img-circle bordered-image" src={this.state.imageurl} />
+                    <h1>{username}</h1>
+                    <h2 className="text-muted">{tagline}</h2>
+                    <p>{blurb}</p>
+                    <Link to="/profileupdate" className="btn btn-primary btn-lg">Edit Profile</Link>
+                  </div>
+              </div>
+            </div>
+          </section>
+        
       </div>
 
     );
