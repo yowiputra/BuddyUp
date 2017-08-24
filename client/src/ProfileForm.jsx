@@ -11,11 +11,11 @@ class ProfileForm extends Component {
     this.state = {
       username: '',
       tagline: '',
-      blurb:'',
+      blurb: '',
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    
+
   }
 
   onChange(e) {
@@ -25,7 +25,7 @@ class ProfileForm extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    this.setState({ errors:{}, isLoading: true });
+    this.setState({ errors: {}, isLoading: true });
     this.props.userUpdateProfile(this.state).then(
       () => {
         this.context.router.history.push('/matchmaker');
@@ -33,7 +33,7 @@ class ProfileForm extends Component {
     );
   }
 
-  render () {
+  render() {
     const { errors } = this.state;
     return (
       <div id="page-top" className="page-top" data-spy="scroll" data-target=".navbar-custom">
@@ -46,7 +46,6 @@ class ProfileForm extends Component {
             <div className="text-center" className="form">
               <form onSubmit={this.onSubmit}>
                 <h1>Profile Update</h1>
-
                   <TextFieldGroup
                     label="Tagline"
                     onChange={this.onChange}
@@ -84,4 +83,4 @@ ProfileForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 }
 
-export default connect(null, {userUpdateProfile})(ProfileForm);
+export default connect(null, { userUpdateProfile })(ProfileForm);

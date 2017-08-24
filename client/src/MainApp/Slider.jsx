@@ -17,7 +17,6 @@ class Slider extends Component {
   }
 
   onSliderChange = (value) => {
-    console.log(value);
     this.setState({
       value,
     }, () => this.props.onSliderUpdate(value));
@@ -28,7 +27,6 @@ class Slider extends Component {
   }
 
   render () {
-    
         const handle = (props) => {
           const { value, dragging, index, ...restProps } = props;
           return (
@@ -44,19 +42,16 @@ class Slider extends Component {
           );
         };
     
-        const wrapperStyle = { width: 400, margin: 50 };
-        return(
+        return (
           <div>
-            <div style={wrapperStyle}>
-              <p>Please slide according to your seriousness</p>
-              <p>{this.props.sliderDefaultValue}</p>
+            <div className="sliderSpace">
+              <p className="slideText">Please slide according to your seriousness:</p> 
+                <p className="slideNumber">{this.props.sliderDefaultValue}</p>
               <RCSlider min={0} max={8000} value={this.props.sliderDefaultValue} handle={handle} 
               onChange={this.onSliderChange}
               />
-    
             </div>
           </div>
-    
         );
       }
 }
