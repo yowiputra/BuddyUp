@@ -24,7 +24,7 @@ class MatchmakerPage extends Component {
     this.updateCompat = this.updateCompat.bind(this);
     this.updateDefaultValue = this.updateDefaultValue.bind(this);
     this.updateCurrentUserName = this.updateCurrentUserName.bind(this);
-    this.newPost = this.newPost.bind(this)
+    this.newPost = this.newPost.bind(this);
   }
 
 
@@ -111,11 +111,11 @@ class MatchmakerPage extends Component {
       currentUserName: username
     })
   }
-
+  
   componentDidMount() {
     console.log("componentDidMount <App />");
     this.socket = io.connect('http://localhost:3001');
-
+    
     var c = this;
     this.socket.on("connect", () => {
       console.log("Connected!");
@@ -178,11 +178,11 @@ class MatchmakerPage extends Component {
     this.updateDefaultValue(value);
     this.socket.emit('updateSeriousness', JSON.stringify({ value }));
   }
-
+  
   inviteUserB = (userData) => {
     this.socket.emit('sendInvite', this.state.currentUserName, JSON.stringify(userData));
   }
-
+  
   render () {
     return (
       <div className="matchmaker-container">

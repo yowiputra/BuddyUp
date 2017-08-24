@@ -44,16 +44,13 @@ class Slider extends Component {
           );
         };
     
-        const wrapperStyle = { width: 400, margin: 50 };
-        return(
+        return (
           <div>
-            <div style={wrapperStyle}>
-              <p>Please slide according to your seriousness</p>
-              <p>{this.props.sliderDefaultValue}</p>
+            <div className="sliderSpace">
+              <p className="slideText">Please slide according to your seriousness: {this.props.sliderDefaultValue}</p>
               <RCSlider min={0} max={8000} value={this.props.sliderDefaultValue} handle={handle} 
               onChange={this.onSliderChange}
               />
-    
             </div>
           </div>
     
