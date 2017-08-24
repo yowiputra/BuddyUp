@@ -11,8 +11,8 @@ module.exports = (io, knex) => {
   const onlineUsers = {};
 
   function queryCompatUsers(username, seriousness){
-    return knex('users').where('seriousness','>',seriousness-10)
-      .andWhere('seriousness','<',seriousness+10)
+    return knex('users').where('seriousness','>',seriousness-600)
+      .andWhere('seriousness','<',seriousness+600)
       .whereIn('username', Object.keys(onlineUsers))
       .then(function(results) {
         function sortFunction(record1,record2) {
@@ -75,12 +75,15 @@ module.exports = (io, knex) => {
 
       // Initial invite
       socket.on('sendInvite', function(currentUserName, userData) {
+        console.log('userData: ', userData)
+        console.log('currentUserName: ', currentUserName)
         const parsedUserData = JSON.parse(userData);
         console.log("invite sent by ", currentUserName, " to ", parsedUserData.username);
         queryUser(currentUserName).then((data) => {
           const senderData = data[0];
           console.log('sender data ', senderData);
           socket.broadcast.emit('respondToInvite', JSON.stringify(senderData), userData);
+
         })
       });
 
@@ -94,10 +97,32 @@ module.exports = (io, knex) => {
         broadcastUpdatedOnlineList();
       })
 
-      socket.on('send message', function(data) {
-        console.log(data);
-        io.sockets.emit('new message', data)
+      socket.on('accepted invitation', function(senderData, receiverData) {
+        const parsedsenderData = JSON.parse(senderData)
+        console.log('senders username:', parsedsenderData.username);
+        console.log('room name: ', parsedsenderData.roomName)
+        const room = parsedsenderData.roomName
+        console.log('socket: ', socket.decoded_token)
+        socket.join(room);
+        console.log(socket.decoded_token.username, 'joined room: ', room)
+        io.sockets.emit('receive accepted invitation', senderData, receiverData)
       })
+
+      socket.on('completed invitation process', function(senderData, receiverData) {
+        const parsedsenderData = JSON.parse(senderData)
+        const room = parsedsenderData.roomName
+        socket.join(room)
+        console.log('here is ?')
+        console.log(socket.decoded_token.username, 'joined room: ', room)
+      })
+
+      socket.on('send message', function(data, room) {
+        console.log(data.username, 'posted in room: ', room, 'with message: ', data.message);
+      //io.sockets.emit('new message', data)
+        io.to(room).emit('new message', data)
+
+      })
+
     })
 
     // const users = [];

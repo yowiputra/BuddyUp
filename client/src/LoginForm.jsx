@@ -46,28 +46,38 @@ class LoginForm extends Component {
   render () {
     const { errors, identifier, password, isLoading } = this.state;
     return (
-      <form onSubmit={this.onSubmit}>
-        <h1>Log in yayyy bowbowbow!</h1>
+      <div id="page-top" className="page-top" data-spy="scroll" data-target=".navbar-custom">
+      
+      <section id="login" className="login">
+        <div>
+          <video autoPlay loop muted src="/loginVid.mp4"/>
+        </div>
+          <div className="formdiv">
+            <form onSubmit={this.onSubmit} >
+              <h1>Account Login</h1>
 
-        { errors.form && <div className="alert alert-danger"> {errors.form}</div>}
-        
-          <TextFieldGroup
-            field="identifier"
-            label="Username / Email"
-            value={this.state.identifier}
-            error={errors.identifier}
-            onChange={this.onChange} />
+              { errors.form && <div className="alert alert-danger"> {errors.form}</div>}
+              
+                <TextFieldGroup
+                  field="identifier"
+                  label="Username / Email"
+                  value={this.state.identifier}
+                  error={errors.identifier}
+                  onChange={this.onChange} />
 
-          <TextFieldGroup
-            field="password"
-            label="Password"
-            value={this.state.password}
-            error={errors.password}
-            onChange={this.onChange}
-            type="password" />
+                <TextFieldGroup
+                  field="password"
+                  label="Password"
+                  value={this.state.password}
+                  error={errors.password}
+                  onChange={this.onChange}
+                  type="password" />
 
-            <div className="form-group"><button className="btn btn-primary btn-lg" disabled={isLoading}>Login</button></div>
-      </form>
+                  <div className="form-group"><button className="btn btn-primary btn-lg" disabled={isLoading}>Login</button></div>
+            </form>
+          </div>
+        </section>
+      </div>  
     );
   }
 }

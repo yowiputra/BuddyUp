@@ -24,36 +24,39 @@ class NavigationBar extends Component {
     const { isAuthenticated } = this.props.auth;
 
     const userLinks = (
-      <IconMenu 
-        iconButtonElement={<IconButton><MenuIcon /></IconButton>} 
-        anchorOrigin={{horizontal: 'right', vertical: 'top'}} 
+      <IconMenu
+        iconButtonElement={<IconButton><MenuIcon /></IconButton>}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem containerElement={<Link to="/profile" />} primaryText="Profile" />
+        <MenuItem href="/profile" primaryText="Profile" />
         <MenuItem href="#" onClick={this.logout.bind(this)}>Logout</MenuItem>
       </IconMenu>
     );
 
     const guestLinks = (
-      <IconMenu 
-      iconButtonElement={<IconButton><MenuIcon /></IconButton>} 
-      anchorOrigin={{horizontal: 'right', vertical: 'top'}} 
+      <IconMenu
+      iconButtonElement={<IconButton><MenuIcon /></IconButton>}
+      anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem containerElement={<Link to="/login" />} primaryText="Login" />        
+        <MenuItem containerElement={<Link to="/login" />} primaryText="Login" />
         <MenuItem containerElement={<Link to="/signup" />} primaryText="Sign up" />
       </IconMenu>
     );
-      
+
     return (
-      <nav>
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <Link to="/matchmaker" className="navbar-brand">(logo)Buddy Up</Link>
+      <nav className="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div className="container">
+          <div className="navbar-header page-scroll">
+            <img src="/logo.png"/>
           </div>
-          <div className="collapse navbar-collapse">
+          <div className="navbar-header page-scroll">
+            <Link to="/matchmaker" className="navbar-brand">BuddyUp</Link>
+          </div>
+          <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul className="nav navbar-nav navbar-right">
-              { isAuthenticated ? userLinks : guestLinks }  
+              { isAuthenticated ? userLinks : guestLinks }
             </ul>
           </div>
         </div>

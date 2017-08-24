@@ -1,57 +1,33 @@
-body{
-  background: white;
-  margin: 0;
-}
-h1, h2 {
-  color: tomato;
-  display: flex;
-  justify-content: center;
-}
-//navbar and dropdown styles
-nav {
-  background: none;
-  border-color: none;
-  justify-content: space-between; 
-  padding: 10px;
-  margin: 0px;
-}
-button {
-  color: lightgray;
-}
+// $brand-color: tomato;
 
-button:hover {
-  color: grey;
-}
+// body{
+//   background: white;
+//   margin: 0;
+// }
+// h1, h2 {
+//   color: $brand-color;
+//   display: flex;
+//   justify-content: center;
+// }
+// //navbar and dropdown styles
+// nav {
+//   background: peachpuff;
+//   display: flex;
+//   justify-content: space-between;
+//   padding: 10px;
+// }
+//   .title {
+//     margin: 0;
+//   }
 
-a:hover{
-  color: grey;
-}
 
-.navbar-brand {
-  color: lightgray;
-  font-weight: bold;  
-  font-size: 25px;
-}
-.title {
-  margin: 0;
-}
+//   .dropdown {
+//     margin: 0;
+//   }
 
-.dropdown {
-    margin: 0;
-  }
-
-  .navbar, .navbar-default{
-    display: block;
-    font-size: x-large;
-    font-weight: bold;
-  }
-
-  .nav, .navbar-nav, .navbar-right {
-    background: lightgray;
-    border-radius: 5px;
-    opacity: .6;  
-  }
-
+//   .navbar, .navbar-default{
+//     display: block;
+//   }
   .nav, .navbar-nav, .navbar-right:hover {
     color: lightgrey;
     cursor: pointer;
@@ -60,7 +36,7 @@ a:hover{
   .caret {
     display: none;
   }
-// card swipe styles  
+// card swipe styles
 .master-root {
   // margin: 20px auto;
   background: grey;
@@ -91,7 +67,7 @@ a:hover{
 }
 
 .card:hover {
-  background: khaki; 
+  background: khaki;
 }
 
 .card-text-description {
@@ -301,18 +277,18 @@ a:hover{
 
 //button within popupbox
 .demo-button {
-  bottom: 55px;  
+  bottom: 55px;
   display: block;
   margin-top: 8px;
   position: fixed;
-  
+
 }
 
 //chat window styles
 .chat-message {
   bottom: 86px;
   display: block;
-  margin-top: 8px;  
+  margin-top: 8px;
   position: fixed;
   width:250px;
 }
