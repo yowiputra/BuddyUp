@@ -11,11 +11,11 @@ class ProfileForm extends Component {
     this.state = {
       username: '',
       tagline: '',
-      blurb:'',
+      blurb: '',
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    
+
   }
 
   onChange(e) {
@@ -25,7 +25,7 @@ class ProfileForm extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    this.setState({ errors:{}, isLoading: true });
+    this.setState({ errors: {}, isLoading: true });
     this.props.userUpdateProfile(this.state).then(
       () => {
         this.context.router.history.push('/matchmaker');
@@ -33,30 +33,30 @@ class ProfileForm extends Component {
     );
   }
 
-  render () {
+  render() {
     const { errors } = this.state;
     return (
       <form onSubmit={this.onSubmit}>
         <h1>Update Profileeeee</h1>
 
-          <TextFieldGroup
-            label="Tagline"
-            onChange={this.onChange}
-            value={this.state.tagline}
-            field="tagline"
-          />
-          <TextFieldGroup
-            label="Blurb"
-            onChange={this.onChange}
-            value={this.state.blurb}
-            field="blurb"
-          />          
+        <TextFieldGroup
+          label="Tagline"
+          onChange={this.onChange}
+          value={this.state.tagline}
+          field="tagline"
+        />
+        <TextFieldGroup
+          label="Blurb"
+          onChange={this.onChange}
+          value={this.state.blurb}
+          field="blurb"
+        />
 
-          <div className="form-group">
-            <button disabled={this.state.isLoading} className="btn btn-primary btn-lg">
-              Update Profile
+        <div className="form-group">
+          <button disabled={this.state.isLoading} className="btn btn-primary btn-lg">
+            Update Profile
             </button>
-          </div>
+        </div>
       </form>
     )
   }
@@ -69,4 +69,4 @@ ProfileForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 }
 
-export default connect(null, {userUpdateProfile})(ProfileForm);
+export default connect(null, { userUpdateProfile })(ProfileForm);

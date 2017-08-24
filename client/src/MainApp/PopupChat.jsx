@@ -10,29 +10,8 @@ class PopupChat extends Component {
       currentUser: this.props.auth.user.username,
       input: '',
     }
-    // this.newPost = this.newPost.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-  
-  componentDidMount() {
-    console.log("PopupChat component mounted");
-  }
-  
-  // newPost() {
-  //   const socket = this.props.socket
-  //   const message = {
-  //     type: "postMessage",
-  //     username: this.state.currentUser,
-  //     message: this.state.input,
-  //   }
-  //   // ws.send(JSON.stringify(message))
-  //   this.setState({ input: ''})
-  //   // console.log(JSON.stringify(message))
-  //   const chatbar = document.getElementById('chatbar');
-  //   chatbar.value = '';
-  //   socket.emit('send message', JSON.stringify(message))
-  //   console.log('message sent')
-  // }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -40,13 +19,11 @@ class PopupChat extends Component {
 
   render() {
     const messageList = this.props.messages.map((message) => {
-          return (<div key={message.id} className="message">
-            <span >{message.username}: {message.content}</span>
-          </div>);
-        })
+      return (<div key={message.id} className="message">
+        <span >{message.username}: {message.content}</span>
+      </div>);
+    })
     return (
-      //Pop up currently triggered by a button click
-      //Eventually, the popup should be activated by an accepted invitation from a potential teammate
       <div className="bordered">
         <div className="messagelist">{messageList}</div>
 

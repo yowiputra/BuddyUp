@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Slider from './Slider.jsx';
 import jwt from 'jsonwebtoken';
 import PopupChat from './PopupChat.jsx';
-import {PopupboxManager, PopupboxContainer} from 'react-popupbox';
+import { PopupboxManager, PopupboxContainer } from 'react-popupbox';
 const uuidv4 = require('uuid/v4');
 
 class MatchmakerPage extends Component {
@@ -20,48 +20,44 @@ class MatchmakerPage extends Component {
       showChat: false,
       roomName: '',
     };
-    //refactor binding like acceptInviation()
     this.updateCompat = this.updateCompat.bind(this);
     this.updateDefaultValue = this.updateDefaultValue.bind(this);
     this.updateCurrentUserName = this.updateCurrentUserName.bind(this);
     this.newPost = this.newPost.bind(this)
+    this.acceptInvitation = this.acceptInvitation.bind(this)
+    this.completeUserInvitation = this.completeUserInvitation.bind(this)
+    this.updateUserSeriousness = this.updateUserSeriousness.bind(this)
+    this.inviteUserB = this.inviteUserB.bind(this)
   }
 
-
-
-
-  openPopupbox (senderData, receiverData) {
-    //receiverData currently has password information
+  openPopupbox(senderData, receiverData) {
     const content = (
       <div>
         <div>
-          {senderData.username + senderData.blurb + senderData.tagline }
+          {senderData.username + senderData.blurb + senderData.tagline}
         </div>
-          <div>
-            <button onClick={(event) => {this.acceptInvitation(senderData, receiverData); this.closePopupBox()}}>Accept</button>
-            <button onClick={this.closePopupBox()}>Decline</button>
-          </div>
+        <div>
+          <button onClick={(event) => { this.acceptInvitation(senderData, receiverData); this.closePopupBox() }}>Accept</button>
+          <button onClick={this.closePopupBox()}>Decline</button>
+        </div>
       </div>
     )
     PopupboxManager.open({ content })
   }
 
-  closePopupBox () {
-    PopupboxManager.close()    
-  }
-  acceptInvitation = (senderData, receiverData) => {
-    const socket = this.props.socket
-    console.log('sender data:', senderData.username)
-    console.log('receiver data: ', receiverData.username)
-    senderData.roomName = uuidv4()
-    this.socket.emit('accepted invitation', JSON.stringify(senderData), JSON.stringify(receiverData) )
-    this.setState({ showChat: true, roomName: senderData.roomName })
-    console.log('accepted invitation')
+  closePopupBox() {
+    PopupboxManager.close()
   }
 
-  completeUserInvitation = (senderData, receiverData) => {
+  acceptInvitation(senderData, receiverData) {
+    const socket = this.props.socket
+    senderData.roomName = uuidv4()
+    this.socket.emit('accepted invitation', JSON.stringify(senderData), JSON.stringify(receiverData))
+    this.setState({ showChat: true, roomName: senderData.roomName })
+  }
+
+  completeUserInvitation(senderData, receiverData) {
     const parsedSenderData = JSON.parse(senderData)
-    console.log('completed invitation process');
     this.socket.emit('completed invitation process', senderData, receiverData)
     this.setState({ roomName: parsedSenderData.roomName })
   }
@@ -73,13 +69,10 @@ class MatchmakerPage extends Component {
       username: this.state.ownUserName,
       message: post,
     }
-    // ws.send(JSON.stringify(message))
-    this.setState({ input: ''})
-    // console.log(JSON.stringify(message))
+    this.setState({ input: '' })
     const chatbar = document.getElementById('chatbar');
     chatbar.value = '';
     this.socket.emit('send message', JSON.stringify(message), this.state.roomName)
-    console.log('message sent')
   }
 
   updateMessages(data) {
@@ -87,14 +80,10 @@ class MatchmakerPage extends Component {
     this.setState({
       messages: broadcastedMessage
     });
-    console.log('this.set.messages: ', this.state.messages)
   }
 
   updateCompat(users) {
-    console.log('before filter ', users);
-    console.log('filter ', this.state.currentUserName);
     const filteredUsers = users.filter(user => user.username != this.state.currentUserName);
-    console.log('after filter ', filteredUsers);
     this.setState({
       compatUsers: filteredUsers
     })
@@ -106,100 +95,91 @@ class MatchmakerPage extends Component {
     })
   }
 
-  updateCurrentUserName(username){
+  updateCurrentUserName(username) {
     this.setState({
       currentUserName: username
     })
   }
 
   componentDidMount() {
-    console.log("componentDidMount <App />");
     this.socket = io.connect('http://localhost:3001');
 
     var c = this;
     this.socket.on("connect", () => {
       console.log("Connected!");
       this.socket
-      .emit('authenticate', {token: localStorage.jwtToken}) //send the jwt
-      .on('authenticated', function (username) {
-        console.log("Authenticated");
-      })
-      .on('unauthorized', function(msg) {
-        console.log("unauthorized: " + JSON.stringify(msg.data));
-        throw new Error(msg.data.type);
-      })
-      .on('getDefaultSeriousness', function(seriousness){
-        console.log(JSON.parse(seriousness));
-        c.updateDefaultValue(JSON.parse(seriousness));
-      })
-      .on('onlinematchedSeriousnessUserIds', function(users, username) {
-        c.updateCurrentUserName(username);
-        c.updateCompat(JSON.parse(users));
-      })
-      .on('respondToInvite', function(senderData, receiverData){
-        console.log('sender ', senderData);
-        console.log('receiver ', receiverData);
-        const parsedSenderData = JSON.parse(senderData);
-        const parsedReceiverData = JSON.parse(receiverData);
-        if(parsedReceiverData.username === c.state.currentUserName){
-          const senderDataArr = c.state.compatUsers.filter(user => user.username === parsedSenderData.username)
-          const senderData = senderDataArr[0];
-          console.log('Respond to ', senderData.username, ' ?');
-          c.openPopupbox(parsedSenderData, parsedReceiverData)
-        }
-      })
-      .on('new message', function(data){
-        const messageData = JSON.parse(data)
-        const message = {username: messageData.username,
-                          content: messageData.message,}
-        console.log(message)
-        c.updateMessages(message);
-      })
-      .on('receive accepted invitation', function(senderData, receiverData) {
-        const parsedSenderData = JSON.parse(senderData)
-        console.log('parsedSenderData: ', parsedSenderData.username)
-        if(c.state.currentUserName === parsedSenderData.username) {
-          console.log('receive accepted invitation!: ', senderData, receiverData)
-          c.completeUserInvitation(senderData, receiverData)
-          c.setState({ showChat: true });
-        }
-      })
-      .on('disconnect', function(){
-        this.socket.emit('disconnect');
-      })
+        .emit('authenticate', { token: localStorage.jwtToken }) //send the jwt
+        .on('authenticated', function (username) {
+        })
+        .on('unauthorized', function (msg) {
+          throw new Error(msg.data.type);
+        })
+        .on('getDefaultSeriousness', function (seriousness) {
+          c.updateDefaultValue(JSON.parse(seriousness));
+        })
+        .on('onlinematchedSeriousnessUserIds', function (users, username) {
+          c.updateCurrentUserName(username);
+          c.updateCompat(JSON.parse(users));
+        })
+        .on('respondToInvite', function (senderData, receiverData) {
+          const parsedSenderData = JSON.parse(senderData);
+          const parsedReceiverData = JSON.parse(receiverData);
+          if (parsedReceiverData.username === c.state.currentUserName) {
+            const senderDataArr = c.state.compatUsers.filter(user => user.username === parsedSenderData.username)
+            const senderData = senderDataArr[0];
+            c.openPopupbox(parsedSenderData, parsedReceiverData)
+          }
+        })
+        .on('new message', function (data) {
+          const messageData = JSON.parse(data)
+          const message = {
+            username: messageData.username,
+            content: messageData.message,
+          }
+          c.updateMessages(message);
+        })
+        .on('receive accepted invitation', function (senderData, receiverData) {
+          const parsedSenderData = JSON.parse(senderData)
+          if (c.state.currentUserName === parsedSenderData.username) {
+            c.completeUserInvitation(senderData, receiverData)
+            c.setState({ showChat: true });
+          }
+        })
+        .on('disconnect', function () {
+          this.socket.emit('disconnect');
+        })
     });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.socket.emit('disconnect');
   }
 
-  updateUserSeriousness = (value) => {
+  updateUserSeriousness(value) {
     this.updateDefaultValue(value);
     this.socket.emit('updateSeriousness', JSON.stringify({ value }));
   }
 
-  inviteUserB = (userData) => {
+  inviteUserB(userData) {
     this.socket.emit('sendInvite', this.state.currentUserName, JSON.stringify(userData));
   }
 
-  render () {
+  render() {
     return (
       <div className="matchmaker-container">
         <div className="slider-container">
-          <Slider onSliderUpdate={ this.updateUserSeriousness } sliderDefaultValue={this.state.defaultValue}/>
+          <Slider onSliderUpdate={this.updateUserSeriousness} sliderDefaultValue={this.state.defaultValue} />
         </div>
         <div className="matchmakerEventAndChat-container">
           <div>
-            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
+            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB={this.inviteUserB} />
           </div>
-          {this.state.showChat && 
-          <div>     
-            <PopupChat newPost={this.newPost} ownUownUserName={this.state.ownUserName} messages={this.state.messages} /> 
-          </div>}
+          {this.state.showChat &&
+            <div>
+              <PopupChat newPost={this.newPost} ownUownUserName={this.state.ownUserName} messages={this.state.messages} />
+            </div>}
         </div>
         <PopupboxContainer />
-
       </div>
     );
   }
