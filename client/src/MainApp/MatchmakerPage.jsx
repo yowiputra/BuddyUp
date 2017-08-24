@@ -33,12 +33,23 @@ class MatchmakerPage extends Component {
   openPopupbox(senderData, receiverData) {
     const content = (
       <div>
-        <div>
-          {senderData.username + senderData.blurb + senderData.tagline}
+        <div className="notif-avatar-div">
+          <img className="notif-avatar" src={"https://api.adorable.io/avatars/285/" + senderData.username + "@adorable.io.png"} /> 
         </div>
+        <div className="notif-username">
+          {senderData.username}
+        </div>
+        <div className="notif-tagline">
+          {senderData.tagline}
+        </div>
+        <br/>
         <div>
-          <button onClick={(event) => { this.acceptInvitation(senderData, receiverData); this.closePopupBox() }}>Accept</button>
-          <button onClick={this.closePopupBox()}>Decline</button>
+          {senderData.blurb}
+        </div>
+        <br/>
+        <div className="notif-btn">
+          <button className="btn btn-lg" onClick={(event) => { this.acceptInvitation(senderData, receiverData); this.closePopupBox() }}>Accept</button>
+          <button className="btn btn-lg" onClick={(event) => { this.closePopupBox() }}>Decline</button>
         </div>
       </div>
     )

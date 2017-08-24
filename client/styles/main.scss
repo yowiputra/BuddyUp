@@ -153,7 +153,8 @@
 }
 
 .popupbox-content {
-  overflow: hidden;
+  overflow: auto;
+  text-align: center;
 }
 
 .popupbox-wrapper {
@@ -196,8 +197,12 @@
 }
 
 .popupbox-content {
-  height: 300px;
+  height: 450px;
+  width: 350px;
   padding: 20px 24px 30px;
+  background: #3e4444;
+  color: white;
+  font-size: 1.25em;
 }
 
 .popupbox-titleBar {
@@ -226,6 +231,30 @@
 .popupbox.is-active {
   opacity: 1;
   pointer-events: auto;
+}
+
+.notif-username {
+  font-size: 2em;
+}
+
+.notif-tagline {
+  font-size: 15px;
+}
+
+.notif-avatar-div {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.notif-avatar {
+  height: 150px;
+  width: 150px;
+}
+
+.notif-btn {
+ text-align: center;
+ display: flex;
+ justify-content: space-evenly;
 }
 
 .popupbox[data-title='bottom'] .popupbox-content { box-shadow: 0 1px 1px rgba(0, 0, 0, .3) }
