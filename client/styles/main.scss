@@ -20,9 +20,9 @@
 }
 
   .card {
-    background: rgba(0,0,0,0.5);
+    background: rgb(0,0,0);
     background-size: cover;
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid rgb(255,255,255);
     border-radius: 2px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     color: white;
@@ -30,14 +30,18 @@
     height: 100%;
     margin: 0 auto;
     padding: 30px;
-    position: relative;
+    position: absolute;
     text-align: center;
     transition: box-shadow .3s;
     width: 100%;
 }
 
 .card:hover {
-  background: rgba(168, 169, 176,0.7);
+  background: rgb(168, 169, 176);
+}
+
+.card h2 {
+  word-wrap: break-word;
 }
 
 .card p {
@@ -45,8 +49,8 @@
 }
 
 .card img {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
 }
 
 .card-text-description {

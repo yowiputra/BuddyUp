@@ -99,10 +99,10 @@ class MatchmakerPage extends Component {
       currentUserName: username
     })
   }
-  
+
   componentDidMount() {
     this.socket = io.connect('http://localhost:3001');
-    
+
     var c = this;
     this.socket.on("connect", () => {
       console.log("Connected!");
@@ -144,14 +144,13 @@ class MatchmakerPage extends Component {
             c.setState({ showChat: true });
           }
         })
-        .on('disconnect', function () {
-          this.socket.emit('disconnect');
-        })
     });
   }
 
   componentWillUnmount() {
-    this.socket.emit('disconnect');
+    if(this.socket){
+      this.socket.disconnect();
+    }
   }
 
   updateUserSeriousness(value) {
