@@ -48,12 +48,14 @@ class NavigationBar extends Component {
     return (
       <nav className="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div className="container">
-          <div className="navbar-header page-scroll">
-            <img src="/logo.png"/>
-          </div>
-          <div className="navbar-header page-scroll">
-            <Link to="/matchmaker" className="navbar-brand">BuddyUp</Link>
-          </div>
+          <a href="/matchmaker">
+            <div className="navbar-header page-scroll">
+              <img src="/logo.png"/>
+            </div>
+            <div className="navbar-header page-scroll">
+              <Link to="/matchmaker" className="navbar-brand">BuddyUp</Link>
+            </div>
+          </a>
           <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul className="nav navbar-nav navbar-right">
               { isAuthenticated ? userLinks : guestLinks }
