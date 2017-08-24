@@ -45,6 +45,7 @@
   height: 50px;
   min-height: 400px;
   max-height: 100px;
+  margin-top: 50px;
   padding: 0px 0px 10px 0px;
   position: relative;
   opacity: 0.6;
@@ -394,12 +395,21 @@
 .sliderSpace {
   width: 525px;
   margin: 30px;
+  margin-top: 100px;
 }
 
 .slideText{
   font-size: x-large;
   color: white;
+  margin: 0px;
   text-align: center;
-  padding: 10px;
+  width: 530px;
+}
+
+.slideNumber{
+  font-size: x-large;
+  color: white;
+  margin: 0px;  
+  text-align: center;
   width: 530px;
 }
