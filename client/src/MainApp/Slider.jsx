@@ -47,7 +47,8 @@ class Slider extends Component {
         return (
           <div>
             <div className="sliderSpace">
-              <p className="slideText">Please slide according to your seriousness: {this.props.sliderDefaultValue}</p>
+              <p className="slideText">Please slide according to your seriousness:</p> 
+                <p className="slideNumber">{this.props.sliderDefaultValue}</p>
               <RCSlider min={0} max={8000} value={this.props.sliderDefaultValue} handle={handle} 
               onChange={this.onSliderChange}
               />
