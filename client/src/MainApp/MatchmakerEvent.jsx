@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Cards, { Card } from 'react-swipe-card';
 
 class MatchmakerEvent extends Component {
+
   render () {
     const data = this.props.compatUsers
     console.log(data)
@@ -16,7 +17,7 @@ class MatchmakerEvent extends Component {
                 this.props.inviteUserB(item);
                }}>
                <h2>{item.username}</h2>
-               <img className="avatar" src={item.imageurl} alt="avatar image"/>
+               <img className="avatar" src="https://api.adorable.io/avatars/285/{this,props.ownUserName}@adorable.io.png" alt="avatar image"/>
                <p className="card-text-description">{item.tagline}</p>
                <p className="card-text-description">{item.blurb}</p>
              </Card>

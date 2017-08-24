@@ -13,7 +13,7 @@ class MatchmakerPage extends Component {
     super(props);
     this.state = {
       compatUsers: [],
-      defaultValue: 50,
+      defaultValue: 4000,
       currentUserName: '',
       ownUserName: this.props.auth.user.username,
       messages: [],
@@ -189,7 +189,7 @@ class MatchmakerPage extends Component {
         </div>
         <div className="matchmakerEventAndChat-container">
           <div>
-            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB}/>
+            <MatchmakerEvent compatUsers={this.state.compatUsers} inviteUserB = {this.inviteUserB} ownUserName={this.state.ownUserName}/>
           </div>
           {this.state.showChat &&
           <div>
