@@ -46,10 +46,10 @@ class NavigationBar extends Component {
     );
       
     return (
-      <nav className="navbar navbar-default">
+      <nav>
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="/matchmaker" className="navbar-brand">Buddy Up</Link>
+            <Link to="/matchmaker" className="navbar-brand">(logo)Buddy Up</Link>
           </div>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
