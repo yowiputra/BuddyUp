@@ -1,7 +1,16 @@
 # BuddyUp
 
 ## Description
-A smarter auto-match system for DOTA2 players.
+A game match-making web application built on React, Redux, PostgreSQL, Express, Socket.io and Node.js. Meant as a better automatch-making system than an online game's default matching system, this web app uses a Tinder-style approach in pairing up players based on their desired skill-level of their match.
+
+## Screenshots
+![Screenshot of the splash page](https://github.com/yowiputra/BuddyUp/blob/master/client/img/splashpage.png)
+
+![Screenshot of the home page](https://github.com/yowiputra/BuddyUp/blob/master/client/img/homescreen.png)
+
+![Screenshot of the request system](https://github.com/yowiputra/BuddyUp/blob/master/client/img/requestcard.png)
+
+![Screenshot of the chat feature](https://github.com/yowiputra/BuddyUp/blob/master/client/img/chat.png)
 
 ## Getting Started
 

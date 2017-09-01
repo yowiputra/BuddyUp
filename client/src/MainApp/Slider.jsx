@@ -41,13 +41,13 @@ class Slider extends Component {
             </Tooltip>
           );
         };
-    
+
         return (
           <div>
             <div className="sliderSpace">
-              <p className="slideText">Please slide according to your seriousness:</p> 
+              <p className="slideText">Slide according to desired MMR!</p> 
                 <p className="slideNumber">{this.props.sliderDefaultValue}</p>
-              <RCSlider min={0} max={8000} value={this.props.sliderDefaultValue} handle={handle} 
+              <RCSlider min={0} max={8000} value={this.props.sliderDefaultValue} handle={handle}
               onChange={this.onSliderChange}
               />
             </div>
